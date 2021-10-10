@@ -5,6 +5,7 @@
 #include <cmath>
 
 
+
 Throw::Throw()
 {
     _startCoordinates = {0,0,0};

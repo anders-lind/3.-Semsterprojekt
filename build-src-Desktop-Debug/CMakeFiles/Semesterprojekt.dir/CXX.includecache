@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/anders/GitHub/3.-Semsterprojekt/src/main.cpp
+iostream
+-
+vector
+-
+cmath
+-
+throw.h
+/home/anders/GitHub/3.-Semsterprojekt/src/throw.h
+
+/home/anders/GitHub/3.-Semsterprojekt/src/throw.h
+vector
+-
+
