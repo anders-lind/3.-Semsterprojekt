@@ -1,1 +1,0 @@
-/usr/bin/g++ -g CMakeFiles/Semesterprojekt.dir/main.cpp.o CMakeFiles/Semesterprojekt.dir/throw.cpp.o -o Semesterprojekt 
