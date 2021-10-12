@@ -7,3 +7,5 @@ How to get this project to work for Linux users:
 3. Call "sudo cmake -DCMAKE_BUILD_TYPE=Debug ../src/" from terminal. Make sure the terminal is called from inside the build-folder
 4. Open Qt Creator and press the "Open" project button
 5. Navigate to the project and in the "src" folder choose "CMakeLists.txt". (fx /home/username/Documents/Github/3.-Semsterprojekt/src/CMakeLists.txt)
+6. Accept the auto selected Debug kit
+7. Congratz you can now work on the project :)
