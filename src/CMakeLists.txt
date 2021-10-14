@@ -1,8 +1,14 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 2.8)
+project( pylon_opencv )
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-project(Semesterprojekt LANGUAGES CXX)
+# OpenCV
+find_package( OpenCV REQUIRED )
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# Pylon 
+list( APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} )
+find_package(Pylon)
+include_directories(${Pylon_INCLUDE_DIRS})
 
-add_executable(Semesterprojekt main.cpp throw.cpp throw.h)
+add_executable( main main.cpp colourdetection.cpp colourdetection.h objectdetection.cpp objectdetection.h)
+target_link_libraries( main ${OpenCV_LIBS} ${Pylon_LIBRARIES})
