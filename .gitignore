@@ -1,6 +1,9 @@
 # ignore the "CMakeLists.txt.user" file when synchronizing
 CMakeLists.txt.user
 src/CMakeLists.txt.user
+<<<<<<< Updated upstream
 
 #ignore all files in build folders when synchronizing
 build/*
+=======
+>>>>>>> Stashed changes
