@@ -1,3 +1,0 @@
-/home/victor/MyWorkspace/pylon_openCV/build/CMakeFiles/rebuild_cache.dir
-/home/victor/MyWorkspace/pylon_openCV/build/CMakeFiles/edit_cache.dir
-/home/victor/MyWorkspace/pylon_openCV/build/CMakeFiles/main.dir
