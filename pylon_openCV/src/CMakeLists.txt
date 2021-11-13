@@ -10,5 +10,12 @@ list( APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} )
 find_package(Pylon)
 include_directories(${Pylon_INCLUDE_DIRS})
 
-add_executable( main main.cpp colourdetection.cpp colourdetection.h objectdetection.cpp objectdetection.h)
-target_link_libraries( main ${OpenCV_LIBS} ${Pylon_LIBRARIES})
+#RL libaries til gripper controller:
+find_package(RL COMPONENTS HAL REQUIRED)
+
+#UR-rtde
+find_package(ur_rtde REQUIRED)
+
+add_executable( main main.cpp colourdetection.cpp colourdetection.h objectdetection.cpp objectdetection.h camera.cpp camera.h)
+target_link_libraries( main ${OpenCV_LIBS} ${Pylon_LIBRARIES} ${RL_LIBRARIES})
+target_link_libraries( main PRIVATE ur_rtde::rtde)

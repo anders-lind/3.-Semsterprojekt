@@ -1,6 +1,5 @@
 #ifndef COLOURDETECTION_H
 #define COLOURDETECTION_H
-
 //includes
 #include <stdio.h>
 #include <opencv2/opencv.hpp>

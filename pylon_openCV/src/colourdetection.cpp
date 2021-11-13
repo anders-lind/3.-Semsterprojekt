@@ -4,118 +4,121 @@ colourDetection::colourDetection()
 {
 
 }
+
 void colourDetection::DetectGreen(cv::Mat input, cv::Mat &output)
 {
-    //Opretter nødvændige midlertidige billeder til behandling
-    cv::Mat imgHSV, mask;
-    //Værdier for farven der skal findes
-    int hmin = 60, smin = 76, vmin = 96;
-    int hmax = 84, smax = 200, vmax = 236;
-    //Convertere til HSV-colourspace fra RGB-colourspace
+    //Initializes temporary images for computation:
+    cv::Mat imgHSV;
+    //HSV values for the green colour wanted:
+    int hmin = 52, smin = 194, vmin = 121;
+    int hmax = 82, smax = 255, vmax = 255;
+    //Convertion to HSV-colourspace from RGB-colourspace:
     cv::cvtColor(input, imgHSV, cv::COLOR_BGR2HSV);
 
-    //Sætter værdierne for farven der skal detekteres
+    //Sets the HSV colour values:
     cv::Scalar lower(hmin, smin, vmin);
     cv::Scalar upper(hmax, smax, vmax);
 
-    //Applyer farvefilter til billedet
+    //Applying colourfilter to the image:
     cv::inRange(imgHSV, lower, upper, output);
-    //Viser de isolerede farver i billedet
+    //Shows the colour mask:
     cv::imshow("Image Green", output);
     cv::waitKey(0);
 }
 
 void colourDetection::DetectBlue(cv::Mat input, cv::Mat &output)
 {
-    //Opretter nødvændige midlertidige billeder til behandling
-    cv::Mat imgHSV, mask;
-    //Værdier for farven der skal findes
-    int hmin = 88, smin = 88, vmin = 42;
-    int hmax = 102, smax = 255, vmax = 255;
-    //Convertere til HSV-colourspace fra RGB-colourspace
+    //Initializes temporary images for computation:
+    cv::Mat imgHSV;
+    //HSV values for the blue colour wanted:
+    int hmin = 83, smin = 109, vmin = 53;
+    int hmax = 108, smax = 255, vmax = 164;
+    //Convertion to HSV-colourspace from RGB-colourspace:
     cv::cvtColor(input, imgHSV, cv::COLOR_BGR2HSV);
 
-    //Sætter værdierne for farven der skal detekteres
+    //Sets the HSV colour values:
     cv::Scalar lower(hmin, smin, vmin);
     cv::Scalar upper(hmax, smax, vmax);
 
-    //Applyer farvefilter til billedet
+    //Applying colourfilter to the image:
     cv::inRange(imgHSV, lower, upper, output);
-    //Viser de isolerede farver i billedet
+    //Shows the colour mask:
     cv::imshow("Image Blue", output);
     cv::waitKey(0);
 }
 
 void colourDetection::DetectRed(cv::Mat input, cv::Mat &output)
 {
-    //Opretter nødvændige midlertidige billeder til behandling
-    cv::Mat imgHSV, mask;
-    //Værdier for farven der skal findes
-    int hmin = 174, smin = 87, vmin = 110;
-    int hmax = 179, smax = 234, vmax = 255;
-    //Convertere til HSV-colourspace fra RGB-colourspace
+    //Initializes temporary images for computation:
+    cv::Mat imgHSV;
+    //HSV values for the red colour wanted:
+    int hmin = 0, smin = 225, vmin = 104;
+    int hmax = 9, smax = 255, vmax = 255;
+    //Convertion to HSV-colourspace from RGB-colourspace:
     cv::cvtColor(input, imgHSV, cv::COLOR_BGR2HSV);
 
-    //Sætter værdierne for farven der skal detekteres
+    //Sets the HSV colour values:
     cv::Scalar lower(hmin, smin, vmin);
     cv::Scalar upper(hmax, smax, vmax);
-    //Applyer farvefilter til billedet
+
+    //Applying colourfilter to the image:
     cv::inRange(imgHSV, lower, upper, output);
-    //Viser de isolerede farver i billedet
+    //Shows the colour mask:
     cv::imshow("Image Red", output);
     cv::waitKey(0);
 }
 
 void colourDetection::DetectOrange(cv::Mat input, cv::Mat &output)
 {
-    //Opretter nødvændige midlertidige billeder til behandling
-    cv::Mat imgHSV, mask;
-    //Værdier for farven der skal findes
-    int hmin = 0, smin = 161, vmin = 145;
-    int hmax = 21, smax = 201, vmax = 255;
-    //Convertere til HSV-colourspace fra RGB-colourspace
+    //Initializes temporary images for computation:
+    cv::Mat imgHSV;
+    //HSV values for the orange colour wanted:
+    int hmin = 12, smin = 255, vmin = 153;
+    int hmax = 21, smax = 255, vmax = 255;
+    //Convertion to HSV-colourspace from RGB-colourspace:
     cv::cvtColor(input, imgHSV, cv::COLOR_BGR2HSV);
 
-    //Sætter værdierne for farven der skal detekteres
+    //Sets the HSV colour values:
     cv::Scalar lower(hmin, smin, vmin);
     cv::Scalar upper(hmax, smax, vmax);
-    //Applyer farvefilter til billedet
+
+    //Applying colourfilter to the image:
     cv::inRange(imgHSV, lower, upper, output);
-    //Viser de isolerede farver i billedet
+    //Shows the colour mask:
     cv::imshow("Image Orange", output);
     cv::waitKey(0);
 }
 
 void colourDetection::DetectYellow(cv::Mat input, cv::Mat &output)
 {
-    //Opretter nødvændige midlertidige billeder til behandling
-    cv::Mat imgHSV, mask;
-    //Værdier for farven der skal findes
-    int hmin = 21, smin = 109, vmin = 177;
-    int hmax = 31, smax = 227, vmax = 255;
+    //Initializes temporary images for computation:
+    cv::Mat imgHSV;
+    //HSV values for the yellow colour wanted:
+    int hmin = 24, smin = 255, vmin = 141;
+    int hmax = 31, smax = 255, vmax = 255;
     //Convertere til HSV-colourspace fra RGB-colourspace
     cv::cvtColor(input, imgHSV, cv::COLOR_BGR2HSV);
 
-    //Sætter værdierne for farven der skal detekteres
+    //Sets the HSV colour values:
     cv::Scalar lower(hmin, smin, vmin);
     cv::Scalar upper(hmax, smax, vmax);
-    //Applyer farvefilter til billedet
+    //Applying colourfilter to the image:
     cv::inRange(imgHSV, lower, upper, output);
-    //Viser de isolerede farver i billedet
+    //Shows the colour mask:
     cv::imshow("Image Yellow", output);
     cv::waitKey(0);
 }
 
 void colourDetection::CalibrateColours(cv::Mat input)
 {
-    //opretter midlertidige containere
+    //Initializes temporary images for computation:
     cv::Mat imgHSV, mask;
-    //initialisere min og max værdier for colourspace
+    //initialize min og max HSV values for colourspace:
     int hmin = 0, smin = 0, vmin = 0;
     int hmax = 179, smax = 255, vmax = 255;
-    //Convertere Colourspace
+    //Converters to HSV Colourspace:
     cv::cvtColor(input, imgHSV, cv::COLOR_BGR2HSV);
-    //Laver trackbars
+    //Creates trackbars:
     cv::namedWindow("Trackbars", (640, 200));
     cv::createTrackbar("Hue min", "Trackbars", &hmin, 179);
     cv::createTrackbar("Hue max", "Trackbars", &hmax, 179);
@@ -124,14 +127,15 @@ void colourDetection::CalibrateColours(cv::Mat input)
     cv::createTrackbar("Val min", "Trackbars", &vmin, 255);
     cv::createTrackbar("Val max", "Trackbars", &vmax, 255);
 
-    //Køre programmet som en vidoe mens værdier opdateres
+    //Runs the program as a video while the values get updated from the trackbars:
     while (true){
-    cv::Scalar lower(hmin, smin, vmin);
-    cv::Scalar upper(hmax, smax, vmax);
-
-    cv::inRange(imgHSV, lower, upper, mask);
-
-    cv::imshow("Image mask", mask);
-    cv::waitKey(1);
-}
+        //Sets upper and lower limits:
+        cv::Scalar lower(hmin, smin, vmin);
+        cv::Scalar upper(hmax, smax, vmax);
+        //Applying colourfilter to the image:
+        cv::inRange(imgHSV, lower, upper, mask);
+        //Show the colour mask:
+        cv::imshow("Image mask", mask);
+        cv::waitKey(1);
+    }
 }

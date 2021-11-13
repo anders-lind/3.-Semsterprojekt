@@ -1,19 +1,16 @@
 //opencv includes
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include <opencv2/opencv.hpp>
-#include <opencv2/imgcodecs.hpp>
-#include <opencv2/highgui.hpp>
-#include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/calib3d.hpp>
 //Pylon includes
 #include <pylon/PylonIncludes.h>
-//standard includes
-#include <iostream>
-#include <stdio.h>
 //My program includes
 #include "colourdetection.h"
 #include "objectdetection.h"
+#include "camera.h"
 
 int main(int argc, char* argv[])
 {
@@ -114,36 +111,39 @@ int main(int argc, char* argv[])
                 //////////// Here your code begins ///////////////////
                 //////////////////////////////////////////////////////
 
+                //Correct camera distortion and shows corrected image:
+                cameraCali c;
+                c.showImage(openCvImage);
+
+                /*      Skal nok ikke bruges anyways
                 // Create an OpenCV display window.
                 cv::namedWindow( "myWindow", cv::WINDOW_NORMAL); // other options: CV_AUTOSIZE, CV_FREERATIO
 
-                //Resize
-                cv::resize(openCvImage, openCvImage, cv::Size(openCvImage.cols * 0.5, openCvImage.rows * 0.5));
                 // Display the current image in the OpenCV display window.
                 cv::imshow( "myWindow", openCvImage);
+                */
 
-                //Min kode indsat
-                //Colour Detection test//
-                //Test af colourdetection classen
+                //Creation of colour masks from corrected image:
                 cv::Mat red, blue, green, yellow, orange;
                 colourDetection a;
-                a.DetectRed(openCvImage, red);
+                //a.DetectRed(openCvImage, red);
                 a.DetectBlue(openCvImage, blue);
-                a.DetectGreen(openCvImage, green);
-                a.DetectOrange(openCvImage, orange);
+                //a.DetectGreen(openCvImage, green);
+                //a.DetectOrange(openCvImage, orange);
+                //a.DetectYellow(openCvImage, yellow);
+                //Used to calibrate colour masks if the method doesnt find the colour:
+                //a.CalibrateColours(openCvImage);
 
-                a.DetectYellow(openCvImage, yellow);
-                //a.CalibrateColours(img);
+                //openCvImage.copyTo(cv::Mat cupFound);             Kan nok fjernes
 
-
-                //Edgedetection og forskel på kop og bold
-                cv::Mat cupFound, ballFound, cupFound2;
-                openCvImage.copyTo(cupFound);
-                openCvImage.copyTo(ballFound);
+                //Finds real world coordinates for cup and ball:
                 objectDetection b;
-                b.findColouredCup(blue, cupFound);
-                b.findColouredBall(blue, ballFound);
-                cv::imshow("image 2", openCvImage);
+                //Through colour masks:
+                b.getColouredCupCoordinates(blue);
+                b.getColouredBallCoordinates(blue);
+                //For a single cup and ball in workspace:
+                //b.getSingleBallCoordinates(openCvImage);
+                //b.getSingleCupCoordinates(openCvImage);
 
                 // Detect key press and quit if 'q' is pressed
                 int keyPressed = cv::waitKey(1);

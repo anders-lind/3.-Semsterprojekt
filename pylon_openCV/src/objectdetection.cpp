@@ -2,137 +2,222 @@
 
 objectDetection::objectDetection()
 {
-
+    //Input for switch case depending on which robot cell you are working in:
+    int i = 0;
+    std::cout << "Input robot cell number between 1 and 4:" << std::endl;
+    std::cin >> i;
+    switch (i) {
+    case 1: {
+        //Reads the homography matrix from a file:
+        cv::FileStorage fileH("../../../build-Homography-Desktop-Debug/H1.xml", cv::FileStorage::READ);
+        fileH["H"] >> homography_matrix;
+        fileH.release();
+        //Prints homography matrix:
+        std::cout << homography_matrix << std::endl;
+        break;
+    }
+    case 2: {
+        //Reads the homography matrix from a file:
+        cv::FileStorage fileH("../../../build-Homography-Desktop-Debug/H2.xml", cv::FileStorage::READ);
+        fileH["H"] >> homography_matrix;
+        fileH.release();
+        //Prints homography matrix:
+        std::cout << homography_matrix << std::endl;
+        break;
+    }
+    case 3: {
+        //Reads the homography matrix from a file:
+        cv::FileStorage fileH("../../../build-Homography-Desktop-Debug/H3.xml", cv::FileStorage::READ);
+        fileH["H"] >> homography_matrix;
+        fileH.release();
+        //Prints homography matrix:
+        std::cout << homography_matrix << std::endl;
+        break;
+    }
+    case 4: {
+        //Reads the homography matrix from a file:
+        cv::FileStorage fileH("../../../build-Homography-Desktop-Debug/H4.xml", cv::FileStorage::READ);
+        fileH["H"] >> homography_matrix;
+        fileH.release();
+        //Prints homography matrix:
+        std::cout << homography_matrix << std::endl;
+        break;
+    }
+    default: {
+        std::cout << "Wrong input. Insert Restart and enter robot cell number between 1 and 4!" << std::endl;
+        break;
+    }
+    }
 }
 
-void objectDetection::findColouredCup(cv::Mat colourMask, cv::Mat &image)
+void objectDetection::getSingleCupCoordinates(cv::Mat image)
 {
-    //Oprettelse af midlertidige containers
-    cv::Mat imgBlured, imgCanny, imgDilation;
-    //Preprossesing af billedet
-    cv::GaussianBlur(colourMask, imgBlured, cv::Size(3,3), 3, 0);
-    cv::Canny(imgBlured, imgCanny, 25, 75);
-    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3,3));
-    cv::dilate(imgCanny, imgDilation, kernel);
-
-    //Oprettelse af nødvændige vectorer og find contours
-    std::vector<std::vector<cv::Point>> contours;
-    std::vector<cv::Vec4i> hierachy;
-    cv::findContours(imgDilation, contours, hierachy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-    std::vector<std::vector<cv::Point>> conPoly(contours.size());
-
-    //filter for contours
-    for(int i = 0; i < contours.size(); ++i){
-        int area = cv::contourArea(contours[i]);
-        std::cout << area << std::endl;
-
-        if(area > 3000){
-            float peri = cv::arcLength(contours[i], true);
-            cv::approxPolyDP(contours[i], conPoly[i], 0.02 * peri, true);
-            cv::drawContours(image, conPoly, i, cv::Scalar(255, 0, 255), 2);
-            std::cout << conPoly[i].size() << std::endl;
-        }
+    //Resize image and create a grayscale image for computation:
+    cv::Mat gray;
+    cv::resize(image, image, cv::Size(image.cols * 0.8, image.rows * 0.8));
+    cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
+    //Applies blur to the grayscale image:
+    cv::medianBlur(gray, gray, 5);
+    //Creates a circles vector and fills it with the possible hough circles:
+    std::vector<cv::Vec3f> circles;
+    cv::HoughCircles(gray, circles, cv::HOUGH_GRADIENT, 1,
+                     gray.rows / 16,  // change this value to detect circles with different distances to each other
+                     100, 30, 26, 40 // change the last two parameters
+                     // (min_radius & max_radius) to detect larger circles
+                     );
+    //Finds the circle and circle center pixel of the hough circle and prints it:
+    cv::Point2f center;
+    for (size_t i = 0; i < circles.size(); i++)
+    {
+        cv::Vec3i c = circles[i];
+        center = cv::Point2f(c[0], c[1]);
+        // circle center:
+        cv::circle(image, center, 1, cv::Scalar(0, 100, 100), 3, cv::LINE_AA);
+        // Prints circle center coordinates:
+        std::cout << center << std::endl;
+        // circle outline:
+        int radius = c[2];
+        cv::circle(image, center, radius, cv::Scalar(255, 0, 255), 3, cv::LINE_AA);
     }
-    //Viser billedet med koppen markeret
-    cv::imshow("Image with coloured cup found", image);
-    cv::waitKey(0);
+    //Show detected hough circles:
+    cv::imshow("detected circles", image);
+    cv::waitKey();
+
+    //converts to real world coordinates:
+    //Needed variables:
+    std::vector<cv::Point2f> real;
+    std::vector<cv::Point2f> centers;
+
+    //Put the circle center coordinate into a vector and converts to real world coordinates:
+    centers.push_back(center);
+    cv::perspectiveTransform(centers, real, homography_matrix);
+    std::cout << real << std::endl;
 }
 
-void objectDetection::findColouredBall(cv::Mat colourMask, cv::Mat &image)
+void objectDetection::getSingleBallCoordinates(cv::Mat image)
 {
-    //Oprettelse af midlertidige containers
-    cv::Mat imgBlured, imgCanny, imgDilation;
-    //Preprossesing af billedet
-    cv::GaussianBlur(colourMask, imgBlured, cv::Size(3,3), 3, 0);
-    cv::Canny(imgBlured, imgCanny, 25, 75);
-    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3,3));
-    cv::dilate(imgCanny, imgDilation, kernel);
-
-    //Oprettelse af nødvændige vectorer og find contours
-    std::vector<std::vector<cv::Point>> contours;
-    std::vector<cv::Vec4i> hierachy;
-    cv::findContours(imgDilation, contours, hierachy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-    std::vector<std::vector<cv::Point>> conPoly(contours.size());
-
-    //filter for contours
-    for(int i = 0; i < contours.size(); ++i){
-        int area = cv::contourArea(contours[i]);
-        std::cout << area << std::endl;
-
-        if(area < 3000){
-            float peri = cv::arcLength(contours[i], true);
-            cv::approxPolyDP(contours[i], conPoly[i], 0.02 * peri, true);
-            cv::drawContours(image, conPoly, i, cv::Scalar(255, 0, 255), 2);
-            std::cout << conPoly[i].size() << std::endl;
-        }
+    //Resize image and create a grayscale image for computation:
+    cv::Mat gray;
+    cv::resize(image, image, cv::Size(image.cols * 0.8, image.rows * 0.8));
+    cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
+    //Applies blur to the grayscale image:
+    cv::medianBlur(gray, gray, 5);
+    //Creates a circles vector and fills it with the possible hough circles:
+    std::vector<cv::Vec3f> circles;
+    cv::HoughCircles(gray, circles, cv::HOUGH_GRADIENT, 1,
+                     gray.rows / 16,  // change this value to detect circles with different distances to each other
+                     100, 30, 12, 16 // change the last two parameters
+                     // (min_radius & max_radius) to detect larger circles
+                     );
+    //Finds the circle and circle center pixel of the hough circle and prints it:
+    cv::Point2f center;
+    for (size_t i = 0; i < circles.size(); i++)
+    {
+        cv::Vec3i c = circles[i];
+        center = cv::Point2f(c[0], c[1]);
+        // circle center:
+        cv::circle(image, center, 1, cv::Scalar(0, 100, 100), 3, cv::LINE_AA);
+        // Prints circle center coordinates:
+        std::cout << center << std::endl;
+        // circle outline:
+        int radius = c[2];
+        cv::circle(image, center, radius, cv::Scalar(255, 0, 255), 3, cv::LINE_AA);
     }
-    //Viser billedet med bolden markeret
-    cv::imshow("Image with coloured ball found", image);
-    cv::waitKey(0);
+    //Show detected hough circles:
+    cv::imshow("detected circles", image);
+    cv::waitKey();
+
+    //converts to real world coordinates:
+    //Needed variables:
+    std::vector<cv::Point2f> real;
+    std::vector<cv::Point2f> centers;
+
+    //Put the circle center coordinate into a vector and converts to real world coordinates:
+    centers.push_back(center);
+    cv::perspectiveTransform(centers, real, homography_matrix);
+    std::cout << real << std::endl;
 }
 
-void objectDetection::findCup(cv::Mat image, cv::Mat &outputImage)
+void objectDetection::getColouredCupCoordinates(cv::Mat mask)
 {
-    cv::Mat imgGray, imgblured, imgCanny, imgDilation;
-    //preprossesing
-    cv::cvtColor(image, imgGray, cv::COLOR_BGR2GRAY);
-    cv::GaussianBlur(imgGray, imgblured, cv::Size(3,3), 3, 0);
-    cv::Canny(imgblured,imgCanny, 25, 75);
-    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3,3));
-    cv::dilate(imgCanny, imgDilation, kernel);
-
-    //Oprettelse af nødvændige vectorer og find contours
-    std::vector<std::vector<cv::Point>> contours;
-    std::vector<cv::Vec4i> hierachy;
-    cv::findContours(imgDilation, contours, hierachy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-    std::vector<std::vector<cv::Point>> conPoly(contours.size());
-
-    //filter for contours
-    for(int i = 0; i < contours.size(); ++i){
-        int area = cv::contourArea(contours[i]);
-        std::cout << area << std::endl;
-
-        if(area > 3000){
-            float peri = cv::arcLength(contours[i], true);
-            cv::approxPolyDP(contours[i], conPoly[i], 0.02 * peri, true);
-            cv::drawContours(image, conPoly, i, cv::Scalar(255, 0, 255), 2);
-            std::cout << conPoly[i].size() << std::endl;
-        }
+    //Resizes the picture
+    cv::resize(mask, mask, cv::Size(mask.cols * 0.8, mask.rows * 0.8));
+    //Blures the picture (if nessesary)
+    cv::GaussianBlur(mask, mask, cv::Size(3,3), 3, 0);
+    //Creates a circles vector and fills it with the possible hough circles:
+    std::vector<cv::Vec3f> circles;
+    cv::HoughCircles(mask, circles, cv::HOUGH_GRADIENT, 1,
+                     mask.rows / 8,  // change this value to detect circles with different distances to each other
+                     30, 15, 26, 40 // change the last two parameters
+                     // (min_radius & max_radius) to detect larger circles
+                     );
+    //Finds the circle and circle center pixel of the hough circle and prints it:
+    cv::Point2f center;
+    for (size_t i = 0; i < circles.size(); i++)
+    {
+        cv::Vec3i c = circles[i];
+        center = cv::Point2f(c[0], c[1]);
+        // circle center:
+        cv::circle(mask, center, 1, cv::Scalar(0, 100, 100), 3, cv::LINE_AA);
+        // Prints circle center coordinates:
+        std::cout << center << std::endl;
+        // circle outline:
+        int radius = c[2];
+        cv::circle(mask, center, radius, cv::Scalar(255, 0, 255), 3, cv::LINE_AA);
     }
-    //Viser billedet med bolden markeret
-    cv::imshow("Image with cup found", image);
-    cv::waitKey(0);
+    //Show detected hough circles:
+    cv::imshow("detected circles", mask);
+    cv::waitKey();
+
+    //converts to real world coordinates:
+    //Needed variables:
+    std::vector<cv::Point2f> real;
+    std::vector<cv::Point2f> centers;
+
+    //Put the circle center coordinate into a vector and converts to real world coordinates:
+    centers.push_back(center);
+    cv::perspectiveTransform(centers, real, homography_matrix);
+    std::cout << real << std::endl;
 }
 
-void objectDetection::findBall(cv::Mat image, cv::Mat &outputImage)
+void objectDetection::getColouredBallCoordinates(cv::Mat mask)
 {
-    cv::Mat imgGray, imgblured, imgCanny, imgDilation;
-    //preprossesing
-    cv::cvtColor(image, imgGray, cv::COLOR_BGR2GRAY);
-    cv::GaussianBlur(imgGray, imgblured, cv::Size(3,3), 3, 0);
-    cv::Canny(imgblured,imgCanny, 25, 75);
-    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3,3));
-    cv::dilate(imgCanny, imgDilation, kernel);
-
-    //Oprettelse af nødvændige vectorer og find contours
-    std::vector<std::vector<cv::Point>> contours;
-    std::vector<cv::Vec4i> hierachy;
-    cv::findContours(imgDilation, contours, hierachy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-    std::vector<std::vector<cv::Point>> conPoly(contours.size());
-
-    //filter for contours
-    for(int i = 0; i < contours.size(); ++i){
-        int area = cv::contourArea(contours[i]);
-        std::cout << area << std::endl;
-
-        if(area < 3000){
-            float peri = cv::arcLength(contours[i], true);
-            cv::approxPolyDP(contours[i], conPoly[i], 0.02 * peri, true);
-            cv::drawContours(image, conPoly, i, cv::Scalar(255, 0, 255), 2);
-            std::cout << conPoly[i].size() << std::endl;
-        }
+    //Resizes the picture
+    cv::resize(mask, mask, cv::Size(mask.cols * 0.8, mask.rows * 0.8));
+    //Blures the picture (if nessesary)
+    cv::GaussianBlur(mask, mask, cv::Size(3,3), 3, 0);
+    //Creates a circles vector and fills it with the possible hough circles:
+    std::vector<cv::Vec3f> circles;
+    cv::HoughCircles(mask, circles, cv::HOUGH_GRADIENT, 1,
+                     mask.rows / 8,  // change this value to detect circles with different distances to each other
+                     30, 15, 12, 16 // change the last two parameters
+                     // (min_radius & max_radius) to detect larger circles
+                     );
+    //Finds the circle and circle center pixel of the hough circle and prints it:
+    cv::Point2f center;
+    for (size_t i = 0; i < circles.size(); i++)
+    {
+        cv::Vec3i c = circles[i];
+        center = cv::Point2f(c[0], c[1]);
+        // circle center:
+        cv::circle(mask, center, 1, cv::Scalar(0, 100, 100), 3, cv::LINE_AA);
+        // Prints circle center coordinates:
+        std::cout << center << std::endl;
+        // circle outline:
+        int radius = c[2];
+        cv::circle(mask, center, radius, cv::Scalar(255, 0, 255), 3, cv::LINE_AA);
     }
-    //Viser billedet med bolden markeret
-    cv::imshow("Image with ball found", image);
-    cv::waitKey(0);
+    //Show detected hough circles:
+    cv::imshow("detected circles", mask);
+    cv::waitKey();
+
+    //converts to real world coordinates:
+    //Needed variables:
+    std::vector<cv::Point2f> real;
+    std::vector<cv::Point2f> centers;
+
+    //Put the circle center coordinate into a vector and converts to real world coordinates:
+    centers.push_back(center);
+    cv::perspectiveTransform(centers, real, homography_matrix);
+    std::cout << real << std::endl;
 }

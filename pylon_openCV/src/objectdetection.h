@@ -1,6 +1,5 @@
 #ifndef OBJECTDETECTION_H
 #define OBJECTDETECTION_H
-
 //Includes
 #include <stdio.h>
 #include <opencv2/opencv.hpp>
@@ -12,10 +11,12 @@ class objectDetection
 {
 public:
     objectDetection();
-    void findColouredCup(cv::Mat colourMask, cv::Mat &image);
-    void findColouredBall(cv::Mat colourMask, cv::Mat &image);
-    void findCup(cv::Mat image, cv::Mat &outputImage);
-    void findBall(cv::Mat image, cv::Mat &outputImage);
+    void getSingleCupCoordinates(cv::Mat image);
+    void getSingleBallCoordinates(cv::Mat image);
+    void getColouredCupCoordinates(cv::Mat mask);
+    void getColouredBallCoordinates(cv::Mat mask);
+private:
+    cv::Mat homography_matrix;  //For computing the homography
 };
 
 #endif // OBJECTDETECTION_H
