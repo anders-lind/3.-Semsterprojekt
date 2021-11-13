@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8.11)
+project(myMdlDemo)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+find_package(RL COMPONENTS HAL REQUIRED)
+add_executable(myMdlDemo main.cpp gripper.cpp gripper.h)
+target_link_libraries(myMdlDemo ${RL_LIBRARIES})
