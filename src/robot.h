@@ -18,11 +18,12 @@ public:
     robot(std::string robotIP, std::string gripperIP);
     void startingPosition();
     void pickUpBall(std::vector<double> coordinates);
+    void goToThrowPos();
     void throwBall(std::vector<double> goalCoordinates);
     void radConversion(std::vector<double> &jPose);
 
 private:
-    gripper m_gripper;
+    //gripper m_gripper;
     ur_rtde::RTDEControlInterface *m_control;
     ur_rtde::RTDEReceiveInterface *m_recieve;
 };

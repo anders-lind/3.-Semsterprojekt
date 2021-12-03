@@ -15,10 +15,11 @@
 #include "gripper.h"
 #include "robot.h"
 #include<thread>
-
+#include <chrono>
 
 int main(int argc, char* argv[])
 {
+    /*
     //Machine vision
     cv::Mat image;
     pylon cP;
@@ -67,12 +68,25 @@ int main(int argc, char* argv[])
     std::cout << "Tjek: " << cupCoorMat << std::endl;
     std::cout << "Tjek: " << ballCoorMat << std::endl;
     std::vector<double> robotCoor= {ballCoorMat.at<float>(0,0), ballCoorMat.at<float>(0,1), ballCoorMat.at<float>(0,2)};
-    //Robot
-    //robot r;
-    //r.startingPosition();
-    //r.pickUpBall(robotCoor);
-    //r.throwBall();
+*/
 
+    //Robot
+    robot r;
+    r.startingPosition();
+    std::cout << "start" << std::endl;
+    sleep(1);
+    std::vector<double> coor = {0.24468073, -0.074169411, 0.174, 3.14 , 0, 0};
+    r.pickUpBall(coor);
+    r.goToThrowPos();
+    std::cout << "Throw" << std::endl;
+    sleep(1);
+    std::vector<double> maalPos = {0.218,-0.566, 0.228, 0, 0, 0};
+    r.throwBall(maalPos);
+    std::cout << "Throw Done" << std::endl;
+    sleep(1);
+    r.startingPosition();
+    std::cout << "Back to start" << std::endl;
+    sleep(1);
     //Database
 
 

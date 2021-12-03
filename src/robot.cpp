@@ -5,7 +5,7 @@
 
 robot::robot()
 {
-    m_gripper = gripper("192.168.100.11");
+    //m_gripper = gripper("192.168.100.11");
     try{
         std::cout << std::boolalpha;
         std::cout << "attempting to connect to robot socket at 127.0.0.1" << std::endl;
@@ -19,7 +19,7 @@ robot::robot()
 
 robot::robot(std::string robotIP, std::string gripperIP)
 {
-    m_gripper = gripper(gripperIP);
+    //m_gripper = gripper(gripperIP);
     try{
         std::cout << std::boolalpha;
         std::cout << "attempting to connect to robot socket at " << robotIP << std::endl;
@@ -46,15 +46,19 @@ void robot::startingPosition()
 
 void robot::pickUpBall(std::vector<double> coordinates)
 {
-    //Converts coordinates to rad
-    radConversion(coordinates);
     //Sets speed, acceleration, move syncronous or not
     double speed = 3;
     double acc = 1;
     bool async = false;
     //Moves the robot
-    m_control->moveJ(coordinates, speed, acc, async);
-    m_gripper.graspObject();
+    m_control->moveL(coordinates, speed, acc, async);
+    //m_gripper.graspObject();
+}
+
+void robot::goToThrowPos(){
+    std::vector<double> qThrowPos = {99, -90, 106, -124, - 85, -101};
+    radConversion(qThrowPos);
+    m_control->moveJ(qThrowPos);
 }
 
 void robot::throwBall(std::vector<double> goalCoordinates)
@@ -69,8 +73,18 @@ void robot::throwBall(std::vector<double> goalCoordinates)
     Eigen::MatrixXd acc = kin.calc_acc(qp_k, 0.5);
     double max_acc = kin.calc_max_acc(acc);
 
+    std::vector<double> test(6);
+    for(int i = 0; i < jacobian::eig2Vec(qp_k).size(); ++i){
+        test.at(i) = jacobian::eig2Vec(qp_k).at(i) * (-1);
+    }
+
+    m_control->speedJ(test, max_acc, 0.5);
+    sleep(double(0.5));
+    m_control->speedStop();
+
     m_control->speedJ(jacobian::eig2Vec(qp_k), max_acc, 0.5);
     sleep(double(0.5));
+    m_control->speedStop();
 }
 
 void robot::radConversion(std::vector<double> &jPose)
