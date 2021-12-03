@@ -32,7 +32,6 @@ Eigen::MatrixXd jacobian::vec2Eig(std::vector<double> coordinates)
 
 std::vector<double> jacobian::eig2Vec(Eigen::MatrixXd mat)
 {
-    std::cout << "eig2vec" << std::endl;
     std::vector<double> vec(6);
     for (int i = 0; i < 6; i++)
         vec[i] = mat(i,0);

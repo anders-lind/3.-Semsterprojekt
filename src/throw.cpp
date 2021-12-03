@@ -74,19 +74,20 @@ double Throw::calculateSpeed(double angle)
 }
 
 
-Eigen::Vector3d Throw::calculate3DSpeed(Eigen::MatrixXd xk, Eigen::MatrixXd xm)
+Eigen::MatrixXd Throw::calculate3DSpeed(Eigen::MatrixXd xk, Eigen::MatrixXd xm)
 {
-    Eigen::Vector3d distance = xm-xk;
-    Eigen::Vector3d xkLevel(0.207,-0.251,0);
+    Eigen::MatrixXd distance = xm-xk;
+    Eigen::MatrixXd xkLevel(3,1);
+    xkLevel << 0.207, -0.251, 0;
 
     // Lav en vinkel på 0 grader til vandret
-    Eigen::Vector3d distanceXY = distance;
-    distanceXY[2] = 0;
+    Eigen::MatrixXd distanceXY = distance;
+    distanceXY(2) = 0;
     double heightDiff = xk(2)-xm(2);
 
     // Calculate 2D speed
-    _distanceVector[0] = distanceXY.norm();
-    _distanceVector[1] = heightDiff;
+    _distanceVector.at(0) = distanceXY.norm();
+    _distanceVector.at(1) = heightDiff;
     double angle = 0;
     double speed = calculateSpeed(angle);
 
@@ -94,7 +95,6 @@ Eigen::Vector3d Throw::calculate3DSpeed(Eigen::MatrixXd xk, Eigen::MatrixXd xm)
     Eigen::MatrixXd speed3D;
     Eigen::MatrixXd unitVector = distanceXY / distanceXY.norm();
     speed3D = unitVector * speed;
-
 
     return speed3D;
 }

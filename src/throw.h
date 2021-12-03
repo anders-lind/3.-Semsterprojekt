@@ -29,7 +29,7 @@ public:
 
     // Calculates and sets the speed member variable speed
     double calculateSpeed(double angle = 3.1415/2);
-    Eigen::Vector3d calculate3DSpeed(Eigen::MatrixXd xk, Eigen::MatrixXd xm);
+    Eigen::MatrixXd calculate3DSpeed(Eigen::MatrixXd xk, Eigen::MatrixXd xm);
 
 
 

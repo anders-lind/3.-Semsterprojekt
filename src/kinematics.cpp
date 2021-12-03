@@ -6,41 +6,42 @@ using namespace ur_rtde;
 
 Kinematics::Kinematics()
 {
-        vector<double> kastpositionDeg = {99, -90, 106, -124, -85, -101};
-        vector<double> maalpositionDeg = {100, -70, 101, -136, -87, -100};
+        // vector<double> kastpositionDeg = {99, -90, 106, -124, -85, -101};
+        // vector<double> maalpositionDeg = {100, -70, 101, -136, -87, -100};
 
-        // Omregn til radianer
-        vector<double> kastpositionRad = kastpositionDeg;
-        for (int i = 0; i < 6; i++)
-            kastpositionRad.at(i) = kastpositionDeg.at(i) * (2*3.14159)/360;
-        vector<double> maalpositionRad = maalpositionDeg;
-        for (int i = 0; i < 6; i++)
-            maalpositionRad.at(i) = maalpositionDeg.at(i) * (2*3.14159)/360;
-
-
-        Eigen::Vector3d xk(0.4674, -0.1943, -0.043);
-        Eigen::Vector3d xm(0.218, -0.566, 0.228);
-
-        // Get joint values for throw position
-        Eigen::MatrixXd q_k(6, 1);
+        // // Omregn til radianer
+        // vector<double> kastpositionRad = kastpositionDeg;
+        // for (int i = 0; i < 6; i++)
+        //     kastpositionRad.at(i) = kastpositionDeg.at(i) * (2*3.14159)/360;
+        // vector<double> maalpositionRad = maalpositionDeg;
+        // for (int i = 0; i < 6; i++)
+        //     maalpositionRad.at(i) = maalpositionDeg.at(i) * (2*3.14159)/360;
 
 
-        q_k << kastpositionRad.at(0), kastpositionRad.at(1),
-            kastpositionRad.at(2), kastpositionRad.at(3),
-            kastpositionRad.at(4), kastpositionRad.at(5);
+        // Eigen::Vector3d xk(0.4674, -0.1943, -0.043);
+        // Eigen::Vector3d xm(0.218, -0.566, 0.228);
+
+        // // Get joint values for throw position
+        // Eigen::MatrixXd q_k(6, 1);
 
 
-        Eigen::MatrixXd xp_k = calc_xp_k(xk, xm);
-        Eigen::MatrixXd qp_k = calc_qp_k(q_k, xp_k);
-        Eigen::MatrixXd acc = calc_acc(qp_k, _t);
-        double maxAcc = calc_max_acc(acc);
+        // q_k << kastpositionRad.at(0), kastpositionRad.at(1),
+        //     kastpositionRad.at(2), kastpositionRad.at(3),
+        //     kastpositionRad.at(4), kastpositionRad.at(5);
+
+
+        // Eigen::MatrixXd xp_k = calc_xp_k(xk, xm);
+        // Eigen::MatrixXd qp_k = calc_qp_k(q_k, xp_k);
+        // Eigen::MatrixXd acc = calc_acc(qp_k, _t);
+        // double maxAcc = calc_max_acc(acc);
 }
 
 
 Eigen::MatrixXd Kinematics::calc_xp_k(Eigen::MatrixXd xk, Eigen::MatrixXd xm)
 {
     Throw kast;
-    Eigen::Vector3d tmp = kast.calculate3DSpeed(xk, xm);
+
+    Eigen::MatrixXd tmp = kast.calculate3DSpeed(xk, xm);
     Eigen::MatrixXd xp_k(6, 1);
     xp_k(0) = tmp(0);
     xp_k(1) = tmp(1);
@@ -48,9 +49,7 @@ Eigen::MatrixXd Kinematics::calc_xp_k(Eigen::MatrixXd xk, Eigen::MatrixXd xm)
     xp_k(3) = 0;
     xp_k(4) = 0;
     xp_k(5) = 0;
-
     _xp_k = xp_k;
-
     return xp_k;
 }
 

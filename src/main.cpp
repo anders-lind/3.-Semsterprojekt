@@ -1,21 +1,24 @@
 //opencv includes
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/videoio.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/core.hpp>
-#include <opencv2/calib3d.hpp>
+// #include <opencv2/core/core.hpp>
+// #include <opencv2/highgui/highgui.hpp>
+// #include <opencv2/videoio.hpp>
+// #include <opencv2/imgproc.hpp>
+// #include <opencv2/core.hpp>
+// #include <opencv2/calib3d.hpp>
 //Pylon includes
 //#include <pylon/PylonIncludes.h>
 //My program includes
-#include "colourdetection.h"
-#include "objectdetection.h"
-#include "camera.h"
-#include "pylon.h"
-#include "gripper.h"
+// #include "colourdetection.h"
+// #include "objectdetection.h"
+// #include "camera.h"
+// #include "pylon.h"
+// #include "gripper.h"
 #include "robot.h"
 #include<thread>
 #include <chrono>
+
+using namespace std;
+
 
 int main(int argc, char* argv[])
 {
@@ -73,17 +76,23 @@ int main(int argc, char* argv[])
     //Robot
     robot r;
     r.startingPosition();
-    std::cout << "start" << std::endl;
-    sleep(1);
-    std::vector<double> coor = {0.24468073, -0.074169411, 0.174, 3.14 , 0, 0};
+    cout << "start" << endl;
+    sleep(5);
+
+    vector<double> coor = {0.24468073, -0.074169411, 0.174, 3.14 , 0, 0};
     r.pickUpBall(coor);
-    r.goToThrowPos();
-    std::cout << "Throw" << std::endl;
+    cout << "pick up ball" << endl;
     sleep(1);
+
+    r.goToThrowPos();
+    std::cout << "Throw pos" << std::endl;
+    sleep(1);
+
     std::vector<double> maalPos = {0.218,-0.566, 0.228, 0, 0, 0};
     r.throwBall(maalPos);
     std::cout << "Throw Done" << std::endl;
     sleep(1);
+
     r.startingPosition();
     std::cout << "Back to start" << std::endl;
     sleep(1);
