@@ -16,6 +16,7 @@
 #include "robot.h"
 #include<thread>
 #include <chrono>
+#include "Database.h"
 
 int main(int argc, char* argv[])
 {
@@ -109,7 +110,22 @@ int main(int argc, char* argv[])
     std::cout << "Back to start" << std::endl;
     sleep(1);
   */
+
     //Database
+
+    //EDIT: Opdater kode og navn til MySQL. Opdater alle variabler med de ønskede værdier
+
+//    Database db; //Opretter database objekt
+//    db.drop_tables(); //Sletter alle tables i MySQL
+//    db.disconnect(); //Afbryd forbindelse til database
+//    db.connect(); //Forbind til database
+//    db.create_tables(); //Skab alle tables
+//    db.add_boldposition(); //Indsæt 1 af hver data
+//    db.add_kopposition(); //Indsæt 1 af hver data
+//    db.add_joint_nulpunkt(); //Indsæt 1 af hver data
+//    db.add_joint_slut(); //Indsæt 1 af hver data
+//    db.add_kast_data(); //Indsæt 1 af hver data
+
 
 
     return 0;
