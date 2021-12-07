@@ -1,6 +1,8 @@
 #include "gripper.h"
 #include<unistd.h>
 #include<iostream>
+#include<chrono>
+#include<thread>
 
 gripper::gripper()
 {
@@ -37,8 +39,8 @@ void gripper::graspObject()
 
 void gripper::releaseObject()
 {
-    m_gripper->doPrePositionFingers(0.11f, 0.4, false, false);
-    sleep(2);
+    std::this_thread::sleep_for(std::chrono::duration<double>(0.46));
+    m_gripper->doPrePositionFingers(0.06f, 0.4, false, false);
     std::cout << "Gripper has released the object" << std::endl;
 }
 
