@@ -16,6 +16,7 @@
 #include "robot.h"
 #include<thread>
 #include <chrono>
+#include "database.h"
 
 int main(int argc, char* argv[])
 {
@@ -48,8 +49,9 @@ int main(int argc, char* argv[])
     A.y = cupCoor.at(0).y;
     B.x = ballCoor.at(0).x;
     B.y = ballCoor.at(0).y;
-
     std::cout << ballCoor << std::endl;
+
+    //---------------------Alt herfra er skrevet ind i en klasse som skal testes-----------------------------
     //Loads robot 2 table calibration matrix and converts table coordinates to robot coordinates
     cv::Mat R2T;
     cv::FileStorage file("../../../build-RobotToTableCalib-Desktop-Debug/R2T2.xml", cv::FileStorage::READ);
@@ -83,8 +85,9 @@ int main(int argc, char* argv[])
     for(int i = 0; i < robotBallCoor.size(); ++i){
         std::cout << robotBallCoor.at(i) << std::endl;
     }
-    //Robot
+    //--------------------------------------------------------------------------------------------------------------------------------
 
+    //Robot
     //Robot test in cell:
     robot r("192.168.100.49", "192.168.100.10");
     r.startingPosition();

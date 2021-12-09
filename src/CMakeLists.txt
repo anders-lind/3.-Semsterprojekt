@@ -16,6 +16,10 @@ find_package(RL COMPONENTS HAL REQUIRED)
 #UR-rtde
 find_package(ur_rtde REQUIRED)
 
-add_executable( main main.cpp colourdetection.cpp colourdetection.h objectdetection.cpp objectdetection.h camera.cpp camera.h pylon.cpp pylon.h gripper.cpp gripper.h robot.cpp robot.h jacobian.cpp jacobian.h kinematics.cpp kinematics.h throw.cpp throw.h)
+#Database
+find_package(Qt5Sql REQUIRED)
+
+add_executable( main main.cpp colourdetection.cpp colourdetection.h objectdetection.cpp objectdetection.h camera.cpp camera.h pylon.cpp pylon.h gripper.cpp gripper.h robot.cpp robot.h jacobian.cpp jacobian.h kinematics.cpp kinematics.h throw.cpp throw.h database.cpp database.h)
 target_link_libraries( main ${OpenCV_LIBS} ${Pylon_LIBRARIES} ${RL_LIBRARIES})
 target_link_libraries( main PRIVATE ur_rtde::rtde)
+target_link_libraries( main Qt5::Sql)

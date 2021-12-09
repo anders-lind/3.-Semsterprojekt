@@ -39,7 +39,7 @@ void gripper::graspObject()
 
 void gripper::releaseObject()
 {
-    std::this_thread::sleep_for(std::chrono::duration<double>(0.46));
+    std::this_thread::sleep_for(std::chrono::duration<double>(0.47));
     m_gripper->doPrePositionFingers(0.06f, 0.4, false, false);
     std::cout << "Gripper has released the object" << std::endl;
 }
