@@ -41,7 +41,7 @@ void get_homographyMatrix()
     std::cout<< homography_matrix <<std::endl;
 
     //Saves the homogrphy matrix to a file:
-    cv::FileStorage fileH("H3.xml", cv::FileStorage::WRITE);
+    cv::FileStorage fileH("H2.xml", cv::FileStorage::WRITE);
     fileH << "H" << cv::Mat(homography_matrix);
 
     //Test that we get the obj coordinates from the scene vector vi the homography matrix:
