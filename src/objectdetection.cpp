@@ -80,7 +80,7 @@ void objectDetection::getSingleCupCoordinates(cv::Mat image, std::vector<cv::Poi
         cv::circle(image, center, radius, cv::Scalar(255, 0, 255), 3, cv::LINE_AA);
     }
     //Show detected hough circles:
-    cv::imshow("detected circles", image);
+    cv::imshow("Single Cup found", image);
     cv::waitKey();
 
     //converts to real world coordinates:
@@ -125,7 +125,7 @@ void objectDetection::getSingleBallCoordinates(cv::Mat image, std::vector<cv::Po
         cv::circle(image, center, radius, cv::Scalar(255, 0, 255), 3, cv::LINE_AA);
     }
     //Show detected hough circles:
-    cv::imshow("detected circles", image);
+    cv::imshow("Single ball found", image);
     cv::waitKey();
 
     //converts to real world coordinates:
@@ -168,7 +168,7 @@ void objectDetection::getColouredCupCoordinates(cv::Mat mask, std::vector<cv::Po
         cv::circle(mask, center, radius, cv::Scalar(255, 0, 255), 3, cv::LINE_AA);
     }
     //Show detected hough circles:
-    cv::imshow("detected circles", mask);
+    cv::imshow("Cup found", mask);
     cv::waitKey();
 
     //converts to real world coordinates:
@@ -211,7 +211,7 @@ void objectDetection::getColouredBallCoordinates(cv::Mat mask, std::vector<cv::P
         cv::circle(mask, center, radius, cv::Scalar(255, 0, 255), 3, cv::LINE_AA);
     }
     //Show detected hough circles:
-    cv::imshow("detected circles", mask);
+    cv::imshow("Ball found", mask);
     cv::waitKey();
 
     //converts to real world coordinates:
@@ -224,4 +224,26 @@ void objectDetection::getColouredBallCoordinates(cv::Mat mask, std::vector<cv::P
     cv::perspectiveTransform(centers, real, homography_matrix);
     std::cout << real << std::endl;
     ballCoor = real;
+}
+
+std::vector<double> objectDetection::convertCoordinates(cv::Point2f coordinate)
+{
+    //Loads robot 2 table calibration matrix and converts table coordinates to robot coordinates
+    cv::Mat R2T;
+    cv::FileStorage file("../../../build-RobotToTableCalib-Desktop-Debug/R2T2.xml", cv::FileStorage::READ);
+    file["R2T"] >> R2T;
+    file.release();
+    std::cout << "Tjek R2T: " << R2T << std::endl;
+
+    //Laver en matrixe til robot 2 table udregninger
+    cv::Mat coorMat = cv::Mat_<float>(1,4);
+    coorMat.at<float>(0,0) = coordinate.x/100;
+    coorMat.at<float>(0,1) = coordinate.y/100;
+    coorMat.at<float>(0,2) = 0;
+    coorMat.at<float>(0,3) = 1;
+    //Robot to table calibration
+    coorMat = R2T * coorMat.reshape(1).t();
+    //Lav til en vektor
+    std::vector<double> robotCoor = {coorMat.at<float>(0,0), coorMat.at<float>(0,1), coorMat.at<float>(0,2), 3.14, 0, 0};
+    return robotCoor;
 }
