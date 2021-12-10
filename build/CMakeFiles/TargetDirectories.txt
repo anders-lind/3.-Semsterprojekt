@@ -1,0 +1,3 @@
+/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles/rebuild_cache.dir
+/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles/edit_cache.dir
+/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles/main.dir

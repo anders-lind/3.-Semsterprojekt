@@ -6,30 +6,16 @@
 
 class Throw
 {
-private:
-    std::vector<double> _startCoordinates;
-    std::vector<double> _targetCoordinates;
-
-    std::vector<double> _distanceVector;
-
-    double _throwAngle;
-    double _speed;
-
-    double g = 9.82;
-    double PI = 3.1415;
-
 public:
     // Constructors
     Throw();
     Throw(std::vector<double> startCoordinates, std::vector<double> targetCoordinates);
 
-
     std::vector<double> calculateDistance();
 
-
     // Calculates and sets the speed member variable speed
-    double calculateSpeed(double angle = 3.1415/2);
-    Eigen::MatrixXd calculate3DSpeed(Eigen::MatrixXd xk, Eigen::MatrixXd xm);
+    double calculateSpeed(Eigen::MatrixXd distance, double angle = 0);
+    Eigen::MatrixXd calculate3DSpeed(Eigen::MatrixXd xk, Eigen::MatrixXd xm, double angle = 3.1415/4.0);
 
 
 
@@ -42,6 +28,19 @@ public:
 
     std::vector<double> getDistance() {return _distanceVector;};
     double getSpeed() {return _speed;};
+
+
+private:
+    std::vector<double> _startCoordinates;
+    std::vector<double> _targetCoordinates;
+
+    std::vector<double> _distanceVector;
+
+    double _throwAngle;
+    double _speed;
+
+    double g = 9.82;
+    double PI = 3.1415;
 };
 
 #endif // THROW_H

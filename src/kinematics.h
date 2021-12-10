@@ -21,7 +21,7 @@ public:
     void printValues();
 
     // ---------- Methods for calculations ----------
-    Eigen::MatrixXd calc_xp_k(Eigen::MatrixXd xk, Eigen::MatrixXd xm);
+    Eigen::MatrixXd calc_xp_k(Eigen::MatrixXd xk, Eigen::MatrixXd xm, double angle = 0);
     Eigen::MatrixXd calc_qp_k(Eigen::MatrixXd q_k, Eigen::MatrixXd xp_k);
 
     Eigen::MatrixXd calc_acc(Eigen::MatrixXd qp_k, double t);

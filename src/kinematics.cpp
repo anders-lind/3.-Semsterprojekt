@@ -37,11 +37,11 @@ Kinematics::Kinematics()
 }
 
 
-Eigen::MatrixXd Kinematics::calc_xp_k(Eigen::MatrixXd xk, Eigen::MatrixXd xm)
+Eigen::MatrixXd Kinematics::calc_xp_k(Eigen::MatrixXd xk, Eigen::MatrixXd xm, double angle)
 {
     Throw kast;
 
-    Eigen::MatrixXd tmp = kast.calculate3DSpeed(xk, xm);
+    Eigen::MatrixXd tmp = kast.calculate3DSpeed(xk, xm, angle);
     Eigen::MatrixXd xp_k(6, 1);
     xp_k(0) = tmp(0);
     xp_k(1) = tmp(1);
@@ -60,7 +60,10 @@ Eigen::MatrixXd Kinematics::calc_qp_k(Eigen::MatrixXd q_k, Eigen::MatrixXd xp_k)
     jacobian Jac(q_k);
     Eigen::MatrixXd J = Jac.get();
     Eigen::MatrixXd qp_k = J.inverse() * xp_k;
-    qp_k(0) = 0;
+    cout << "qp_k = Jac(q_k).inverse() * xp_k" << endl;
+    cout << "q_k = \n" << q_k << endl;
+    cout << "qp_k = " << qp_k << "\n = \n" << J.inverse() << "\n * \n" << xp_k << endl;
+    //qp_k(0) = 0;
 
     // Opstil grafer for q og qp for hvert led
     // qp(t) = f(t) = at + b                ->      b = 0       a = (qp(t) - b) / t

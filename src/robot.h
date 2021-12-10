@@ -19,12 +19,17 @@ class robot
 {
 public:
     robot();
+    robot(std::string robotIP);
     robot(std::string robotIP, std::string gripperIP);
+    void moveJ(std::vector<double> jointValues);
+    void moveL(std::vector<double> coordinates);
     void startingPosition();
     void pickUpBall(std::vector<double> coordinates);
     void goToThrowPos();
-    void throwBall(std::vector<double> goalCoordinates, double t = 0.5);
+    void throwBall(std::vector<double> x_m_goalCoordinates, double angle = 0, double time = 0.25);
     void radConversion(std::vector<double> &jPose);
+    void speedL(std::vector<double>dx, double a, double t);
+    std::vector<double> getActualTCPPose();
 
 private:
     //gripper m_gripper;
