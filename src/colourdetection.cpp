@@ -31,8 +31,8 @@ void colourDetection::DetectBlue(cv::Mat input, cv::Mat &output)
     //Initializes temporary images for computation:
     cv::Mat imgHSV;
     //HSV values for the blue colour wanted:
-    int hmin = 83, smin = 109, vmin = 53;
-    int hmax = 108, smax = 255, vmax = 164;
+    int hmin = 64, smin = 137, vmin = 16;
+    int hmax = 114, smax = 255, vmax = 55;
     //Convertion to HSV-colourspace from RGB-colourspace:
     cv::cvtColor(input, imgHSV, cv::COLOR_BGR2HSV);
 
@@ -94,8 +94,8 @@ void colourDetection::DetectYellow(cv::Mat input, cv::Mat &output)
     //Initializes temporary images for computation:
     cv::Mat imgHSV;
     //HSV values for the yellow colour wanted:
-    int hmin = 24, smin = 255, vmin = 141;
-    int hmax = 31, smax = 255, vmax = 255;
+    int hmin = 22, smin = 243, vmin = 65;
+    int hmax = 30, smax = 255, vmax = 255;
     //Convertere til HSV-colourspace fra RGB-colourspace
     cv::cvtColor(input, imgHSV, cv::COLOR_BGR2HSV);
 

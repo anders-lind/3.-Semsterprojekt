@@ -31,9 +31,12 @@ int main(int argc, char* argv[])
     cv::waitKey(0);
 
     //Creation of colour masks from corrected image:
-    //cv::Mat blue;
-    //colourDetection a;
-    //a.DetectBlue(image, blue);
+    cv::Mat blue, yellow;
+    colourDetection a;
+    //a.CalibrateColours(image);
+
+    a.DetectBlue(image, blue);
+    a.DetectYellow(image, yellow);
 
     //Get coordinates
     objectDetection o;
@@ -41,54 +44,25 @@ int main(int argc, char* argv[])
     std::vector<cv::Point2f> ballCoor;
     std::vector<cv::Point2f> cupCoor;
     cv::Point2f A, B;
-    //o.getColouredCupCoordinates(blue, cupCoor);
-    //o.getColouredBallCoordinates(blue, ballCoor);
-    o.getSingleBallCoordinates(image, ballCoor);
-    o.getSingleCupCoordinates(image, cupCoor);
+    o.getColouredCupCoordinates(yellow, cupCoor);
+    o.getColouredBallCoordinates(yellow, ballCoor);
+    //o.getSingleBallCoordinates(blue, ballCoor);
+    //o.getSingleCupCoordinates(blue, cupCoor);
     A.x = cupCoor.at(0).x;
     A.y = cupCoor.at(0).y;
     B.x = ballCoor.at(0).x;
     B.y = ballCoor.at(0).y;
     std::cout << ballCoor << std::endl;
 
-    //---------------------Alt herfra er skrevet ind i en klasse som skal testes-----------------------------
-    //Loads robot 2 table calibration matrix and converts table coordinates to robot coordinates
-    cv::Mat R2T;
-    cv::FileStorage file("../../../build-RobotToTableCalib-Desktop-Debug/R2T2.xml", cv::FileStorage::READ);
-    file["R2T"] >> R2T;
-    file.release();
-    std::cout << "Tjek R2T: " << R2T << std::endl;
+    std::vector<double> robotBallCoor(6);
+    std::vector<double> robotCupCoor(6);
 
-    //Laver to matrixer til robot 2 table udregninger
-    cv::Mat cupCoorMat = cv::Mat_<float>(1,4);
-    cv::Mat ballCoorMat = cv::Mat_<float>(1,4);
-    cupCoorMat.at<float>(0,0) = A.x/100;
-    cupCoorMat.at<float>(0,1) = A.y/100;
-    cupCoorMat.at<float>(0,2) = 0;
-    cupCoorMat.at<float>(0,3) = 1;
-    ballCoorMat.at<float>(0,0) = B.x/100;
-    ballCoorMat.at<float>(0,1) = B.y/100;
-    ballCoorMat.at<float>(0,2) = 0;
-    ballCoorMat.at<float>(0,3) = 1;
-    std::cout << "Ball Mat: " << ballCoorMat << std::endl;
-    std::cout << "Cup Mat: " << cupCoorMat << std::endl;
-    std::cout << "test transpose" << ballCoorMat.reshape(1).t() << std::endl;
-    //Robot to table calibration
-    ballCoorMat = R2T * ballCoorMat.reshape(1).t();
-    cupCoorMat = R2T * cupCoorMat.reshape(1).t();
-    std::cout << "Tjek Cup: " << cupCoorMat << std::endl;
-    std::cout << "Tjek Ball: " << ballCoorMat << std::endl;
-    //Lav til en vektor
-    std::vector<double> robotBallCoor = {ballCoorMat.at<float>(0,0), ballCoorMat.at<float>(0,1), ballCoorMat.at<float>(0,2), 3.14, 0, 0};
-    std::vector<double> robotCupCoor = {cupCoorMat.at<float>(0,0), cupCoorMat.at<float>(0,1), cupCoorMat.at<float>(0,2), 0, 0, 0};
-    std::cout << "ballcoordinates: " << std::endl;
-    for(int i = 0; i < robotBallCoor.size(); ++i){
-        std::cout << robotBallCoor.at(i) << std::endl;
-    }
-    //--------------------------------------------------------------------------------------------------------------------------------
+    robotBallCoor = o.convertCoordinates(B, 0);
+    robotCupCoor = o.convertCoordinates(A, 0.075);
 
     //Robot
     //Robot test in cell:
+
     robot r("192.168.100.49", "192.168.100.10");
     r.startingPosition();
     sleep(1);
@@ -99,39 +73,70 @@ int main(int argc, char* argv[])
     r.goToThrowPos();
     sleep(1);
 
+    double angle = 0;
+    r.throwBall(robotCupCoor, angle, 0.13);
+    sleep(1);
+
+    r.startingPosition();
+/*
+    o.getColouredCupCoordinates(yellow, cupCoor);
+    o.getColouredBallCoordinates(yellow, ballCoor);
+    A.x = cupCoor.at(0).x;
+    A.y = cupCoor.at(0).y;
+    B.x = ballCoor.at(0).x;
+    B.y = ballCoor.at(0).y;
+    robotBallCoor = o.convertCoordinates(B);
+    robotCupCoor = o.convertCoordinates(A);
+
+    r.pickUpBall(robotBallCoor);
+    sleep(1);
+
+    r.goToThrowPos();
+    sleep(1);
+
     r.throwBall(robotCupCoor);
     sleep(1);
 
     r.startingPosition();
-
+*/
     r.closeConnections();
 
     //For sim
-    /*
+/*
     robot r;
     r.startingPosition();
     std::cout << "start" << std::endl;
-    sleep(3);
+    sleep(1);
 
     //std::vector<double> coor = {0.24468073, -0.074169411, 0.174, 3.14 , 0, 0};
-    r.pickUpBall(robotBallCoor);
-    std::cout << "Pick up ball" << std::endl;
+    //r.pickUpBall(robotBallCoor);
+    //std::cout << "Pick up ball" << std::endl;
 
-    r.goToThrowPos();
-    std::cout << "Throw" << std::endl;
-    sleep(1);
+    //r.goToThrowPos();
+    //std::cout << "Throw" << std::endl;
+    //sleep(1);
 
     //std::vector<double> maalPos = {0.218,-0.566, 0.228, 0, 0, 0};
-    r.throwBall(robotCupCoor);
-    std::cout << "Throw Done" << std::endl;
-    sleep(1);
+    //r.throwBall(robotCupCoor);
+    //std::cout << "Throw Done" << std::endl;
+    //sleep(1);
 
-    r.startingPosition();
-    std::cout << "Back to start" << std::endl;
-    sleep(1);
+    //r.startingPosition();
+    //std::cout << "Back to start" << std::endl;
+    //sleep(1);
 */
     //Database
-
-
+    /*
+    Database db;
+    db.drop_tables();
+    // db.disconnect();
+    // db.connect();
+    db.create_tables();
+    db.add_boldposition(robotBallCoor);
+    db.add_kopposition(robotCupCoor);
+    //db.add_joint_nulpunkt();
+    //db.add_joint_slut();
+    //db.add_kast_data();
+*/
     return 0;
 }

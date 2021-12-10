@@ -13,11 +13,11 @@ class Database
 public:
     Database();
 
-    std::vector<std::vector<double>> add_boldposition();
-    std::vector<std::vector<double>> add_kopposition();
-    std::vector<std::vector<double>> add_joint_nulpunkt();
-    std::vector<std::vector<double>> add_joint_slut();
-    std::vector<std::vector<double>> add_kast_data();
+    void add_boldposition(std::vector<double> robotBallCoordinates);
+    void add_kopposition(std::vector<double> robotCupCoordinates);
+    void add_joint_nulpunkt(std::vector<double> nulpunktJointValues);
+    void add_joint_slut(std::vector<double> kastJointValues);
+    void add_kast_data();
 
     void sync_data();
     void create_tables();

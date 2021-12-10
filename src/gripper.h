@@ -8,7 +8,7 @@ public:
     gripper();
     gripper(std::string ip);
     void graspObject();
-    void releaseObject();
+    void releaseObject(double time);
     void graspObjectDia(float Diameter);
     void closeConnection();
 private:

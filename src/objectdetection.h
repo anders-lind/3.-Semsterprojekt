@@ -15,7 +15,7 @@ public:
     void getSingleBallCoordinates(cv::Mat image, std::vector<cv::Point2f> &ballCoor);
     void getColouredCupCoordinates(cv::Mat mask, std::vector<cv::Point2f> &cupCoor);
     void getColouredBallCoordinates(cv::Mat mask, std::vector<cv::Point2f> &ballCoor);
-    std::vector<double> convertCoordinates(cv::Point2f coordinate);
+    std::vector<double> convertCoordinates(cv::Point2f coordinate, double heightOfObjectm);
 private:
     cv::Mat homography_matrix;  //For computing the homography
 };

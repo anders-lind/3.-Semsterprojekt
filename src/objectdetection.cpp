@@ -226,7 +226,7 @@ void objectDetection::getColouredBallCoordinates(cv::Mat mask, std::vector<cv::P
     ballCoor = real;
 }
 
-std::vector<double> objectDetection::convertCoordinates(cv::Point2f coordinate)
+std::vector<double> objectDetection::convertCoordinates(cv::Point2f coordinate, double heightOfObjectm)
 {
     //Loads robot 2 table calibration matrix and converts table coordinates to robot coordinates
     cv::Mat R2T;
@@ -239,7 +239,7 @@ std::vector<double> objectDetection::convertCoordinates(cv::Point2f coordinate)
     cv::Mat coorMat = cv::Mat_<float>(1,4);
     coorMat.at<float>(0,0) = coordinate.x/100;
     coorMat.at<float>(0,1) = coordinate.y/100;
-    coorMat.at<float>(0,2) = 0;
+    coorMat.at<float>(0,2) = heightOfObjectm;
     coorMat.at<float>(0,3) = 1;
     //Robot to table calibration
     coorMat = R2T * coorMat.reshape(1).t();

@@ -14,18 +14,24 @@
 class robot
 {
 public:
+    //Basic constructor skal ikke bruges
     robot();
+    //Constructor til sim
     robot(std::string robotIP);
+    //Constructor til program
     robot(std::string robotIP, std::string gripperIP);
+    //Robotcommandoer
     void moveJ(std::vector<double> jointValues);
     void moveL(std::vector<double> coordinates);
+    void speedL(std::vector<double>dx, double a, double t);
+    std::vector<double> getActualTCPPose();
+    //Program kommandoer
     void startingPosition();
     void pickUpBall(std::vector<double> coordinates);
     void goToThrowPos();
     void throwBall(std::vector<double> x_m_goalCoordinates, double angle = 0, double time = 0.25);
+    void closeConnections();
     void radConversion(std::vector<double> &jPose);
-    void speedL(std::vector<double>dx, double a, double t);
-    std::vector<double> getActualTCPPose();
 
 private:
     gripper *m_gripper;

@@ -194,19 +194,12 @@ void Database::connect() {
     else std::cout << "Fejl.. forbindelse ikke oprettet" << std::endl;
 }
 
-std::vector<std::vector<double>> Database::add_boldposition()
+void Database::add_boldposition(std::vector<double> robotBallCoordinates)
 {
     QSqlQuery query;
 
-    std::vector<std::vector<double>> bold_position_liste;
-    std::vector<double> koordinater;
-
-    double x_coord = 21; //std::string sx_coord = x_coord.toStdString();
-    double y_coord = 192; //std::string sy_coord = y_coord.toStdString();
-
-    koordinater.emplace_back(x_coord);
-    koordinater.emplace_back(y_coord);
-    bold_position_liste.emplace_back(koordinater);
+    double x_coord = robotBallCoordinates.at(0); //std::string sx_coord = x_coord.toStdString();
+    double y_coord = robotBallCoordinates.at(1); //std::string sy_coord = y_coord.toStdString();
 
     std::cout << "Bold data opdateret" << std::endl;
 
@@ -223,22 +216,14 @@ std::vector<std::vector<double>> Database::add_boldposition()
     }
 
     std::cout << "Boldposition indsat: " << "(X: " << x_coord << " | Y: " << y_coord << ")" << std::endl;
-    return bold_position_liste;
 }
 
-std::vector<std::vector<double>> Database::add_kopposition()
+void Database::add_kopposition(std::vector<double> robotCupCoordinates)
 {
     QSqlQuery query;
 
-    std::vector<std::vector<double>> kop_position_liste;
-    std::vector<double> koordinater;
-
-    double x_coord = 21;
-    double y_coord = 192;
-
-    koordinater.emplace_back(x_coord);
-    koordinater.emplace_back(y_coord);
-    kop_position_liste.emplace_back(koordinater);
+    double x_coord = robotCupCoordinates.at(0);
+    double y_coord = robotCupCoordinates.at(1);
 
     std::cout << "Kop data opdateret" << std::endl;
 
@@ -255,31 +240,19 @@ std::vector<std::vector<double>> Database::add_kopposition()
     }
 
     std::cout << "Kopdata indsat: " << "(X: " << x_coord << " | Y: " << y_coord << ")" << std::endl;
-    return kop_position_liste;
 }
 
-std::vector<std::vector<double>> Database::add_joint_nulpunkt()
+void Database::add_joint_nulpunkt(std::vector<double> nulpunktJointValues)
 {
     QSqlQuery query;
-    std::vector<std::vector<double>> joint_position_liste;
-    std::vector<double> joints;
 
     //Opdater disse værdier
-    double j1 = 1;
-    double j2 = 2;
-    double j3 = 3;
-    double j4 = 4;
-    double j5 = 5;
-    double j6 = 6;
-
-    joints.emplace_back(j1);
-    joints.emplace_back(j2);
-    joints.emplace_back(j3);
-    joints.emplace_back(j4);
-    joints.emplace_back(j5);
-    joints.emplace_back(j6);
-
-    joint_position_liste.emplace_back(joints);
+    double j1 = nulpunktJointValues.at(0);
+    double j2 = nulpunktJointValues.at(1);
+    double j3 = nulpunktJointValues.at(2);
+    double j4 = nulpunktJointValues.at(3);
+    double j5 = nulpunktJointValues.at(4);
+    double j6 = nulpunktJointValues.at(5);
 
     std::cout << "Joint data opdateret" << std::endl;
 
@@ -303,31 +276,18 @@ std::vector<std::vector<double>> Database::add_joint_nulpunkt()
     std::cout << "Joint nulpunkt data indsat: " << "(J1: " << j1 << " | J2: " << j2
               << " | J3: " << j3 << " | J4: " << j4
               << " | J5: " << j5 << " | J6: " << j6 << ")" << std::endl;
-    return joint_position_liste;
 }
 
-std::vector<std::vector<double>> Database::add_joint_slut()
+void Database::add_joint_slut(std::vector<double> kastJointValues)
 {
     QSqlQuery query;
 
-    std::vector<std::vector<double>> joint_position_liste;
-    std::vector<double> joints;
-
-    double j1 = 1;
-    double j2 = 2;
-    double j3 = 3;
-    double j4 = 4;
-    double j5 = 5;
-    double j6 = 6;
-
-    joints.emplace_back(j1);
-    joints.emplace_back(j2);
-    joints.emplace_back(j3);
-    joints.emplace_back(j4);
-    joints.emplace_back(j5);
-    joints.emplace_back(j6);
-
-    joint_position_liste.emplace_back(joints);
+    double j1 = kastJointValues.at(0);
+    double j2 = kastJointValues.at(1);
+    double j3 = kastJointValues.at(2);
+    double j4 = kastJointValues.at(3);
+    double j5 = kastJointValues.at(4);
+    double j6 = kastJointValues.at(5);
 
     std::cout << "Joint data opdateret" << std::endl;
 
@@ -351,10 +311,9 @@ std::vector<std::vector<double>> Database::add_joint_slut()
     std::cout << "Joint slutpunkt data indsat: " << "(J1: " << j1 << " | J2: " << j2
               << " | J3: " << j3 << " | J4: " << j4
               << " | J5: " << j5 << " | J6: " << j6 << ")" << std::endl;
-    return joint_position_liste;
 }
 
-std::vector<std::vector<double>> Database::add_kast_data()
+void Database::add_kast_data() //Skal vi lige finde ud af
 {
     QSqlQuery query;
     std::vector<std::vector<double>> kast_data_liste;
@@ -398,5 +357,4 @@ std::vector<std::vector<double>> Database::add_kast_data()
     std::cout << "Kast data indsat: " << "(Lenght: " << lenght << " | acceleration: " << acceleration
               << " | speed: " << speed << " | time: " << time
               << " | ramt: " << ramt << " | misset: " << misset << ")" << std::endl;
-    return kast_data_liste;
 }
