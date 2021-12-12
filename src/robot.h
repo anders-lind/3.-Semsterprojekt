@@ -1,5 +1,6 @@
 #ifndef ROBOT_H
 #define ROBOT_H
+
 #include <ur_rtde/rtde_control_interface.h>
 #include <ur_rtde/rtde_receive_interface.h>
 #include <iostream>
@@ -10,6 +11,7 @@
 #include <eigen3/Eigen/Dense>
 #include "jacobian.h"
 #include "gripper.h"
+
 
 class robot
 {

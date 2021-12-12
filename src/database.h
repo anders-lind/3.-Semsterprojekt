@@ -1,5 +1,6 @@
 #ifndef DATABASE_H
 #define DATABASE_H
+
 #include<QCoreApplication>
 #include<QSqlDatabase>
 #include<QtSql>
@@ -7,6 +8,7 @@
 #include<sstream>
 #include<iostream>
 #include<QDebug>
+
 
 class Database
 {

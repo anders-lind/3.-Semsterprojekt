@@ -4,6 +4,7 @@
 using namespace std;
 using namespace ur_rtde;
 
+
 Kinematics::Kinematics()
 {
         // vector<double> kastpositionDeg = {99, -90, 106, -124, -85, -101};

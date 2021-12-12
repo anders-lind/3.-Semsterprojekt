@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 robot::robot()
 {
     //m_gripper = new gripper("192.168.100.11");

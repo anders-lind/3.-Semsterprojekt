@@ -1,6 +1,8 @@
 #ifndef GRIPPER_H
 #define GRIPPER_H
+
 #include <rl/hal/WeissWsg50.h>
+
 
 class gripper
 {

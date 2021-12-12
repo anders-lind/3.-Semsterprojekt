@@ -1,7 +1,9 @@
 #ifndef CAMERA_H
 #define CAMERA_H
+
 //includes
 #include <opencv2/opencv.hpp>
+
 
 class cameraCali
 {

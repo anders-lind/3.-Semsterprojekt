@@ -1,15 +1,15 @@
 #ifndef KINEMATICS_H
 #define KINEMATICS_H
 
-#include <vector>
-#include <iostream>
-#include <iomanip>
+#include "jacobian.h"
 
 #include <ur_rtde/rtde_control_interface.h>
 #include <ur_rtde/rtde_receive_interface.h>
 #include <eigen3/Eigen/Dense>
+#include <vector>
+#include <iostream>
+#include <iomanip>
 
-#include "jacobian.h"
 
 class Kinematics
 {
