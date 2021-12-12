@@ -70,9 +70,74 @@ CMakeFiles/main.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/anders/Documents/GitHub/3.-Semsterprojekt/src/main.cpp -o CMakeFiles/main.dir/main.cpp.s
 
+CMakeFiles/main.dir/colourdetection.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/colourdetection.cpp.o: /home/anders/Documents/GitHub/3.-Semsterprojekt/src/colourdetection.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/colourdetection.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/colourdetection.cpp.o -c /home/anders/Documents/GitHub/3.-Semsterprojekt/src/colourdetection.cpp
+
+CMakeFiles/main.dir/colourdetection.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/colourdetection.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/anders/Documents/GitHub/3.-Semsterprojekt/src/colourdetection.cpp > CMakeFiles/main.dir/colourdetection.cpp.i
+
+CMakeFiles/main.dir/colourdetection.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/colourdetection.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/anders/Documents/GitHub/3.-Semsterprojekt/src/colourdetection.cpp -o CMakeFiles/main.dir/colourdetection.cpp.s
+
+CMakeFiles/main.dir/objectdetection.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/objectdetection.cpp.o: /home/anders/Documents/GitHub/3.-Semsterprojekt/src/objectdetection.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/objectdetection.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/objectdetection.cpp.o -c /home/anders/Documents/GitHub/3.-Semsterprojekt/src/objectdetection.cpp
+
+CMakeFiles/main.dir/objectdetection.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/objectdetection.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/anders/Documents/GitHub/3.-Semsterprojekt/src/objectdetection.cpp > CMakeFiles/main.dir/objectdetection.cpp.i
+
+CMakeFiles/main.dir/objectdetection.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/objectdetection.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/anders/Documents/GitHub/3.-Semsterprojekt/src/objectdetection.cpp -o CMakeFiles/main.dir/objectdetection.cpp.s
+
+CMakeFiles/main.dir/camera.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/camera.cpp.o: /home/anders/Documents/GitHub/3.-Semsterprojekt/src/camera.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/camera.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/camera.cpp.o -c /home/anders/Documents/GitHub/3.-Semsterprojekt/src/camera.cpp
+
+CMakeFiles/main.dir/camera.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/camera.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/anders/Documents/GitHub/3.-Semsterprojekt/src/camera.cpp > CMakeFiles/main.dir/camera.cpp.i
+
+CMakeFiles/main.dir/camera.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/camera.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/anders/Documents/GitHub/3.-Semsterprojekt/src/camera.cpp -o CMakeFiles/main.dir/camera.cpp.s
+
+CMakeFiles/main.dir/pylon.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/pylon.cpp.o: /home/anders/Documents/GitHub/3.-Semsterprojekt/src/pylon.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/pylon.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/pylon.cpp.o -c /home/anders/Documents/GitHub/3.-Semsterprojekt/src/pylon.cpp
+
+CMakeFiles/main.dir/pylon.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/pylon.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/anders/Documents/GitHub/3.-Semsterprojekt/src/pylon.cpp > CMakeFiles/main.dir/pylon.cpp.i
+
+CMakeFiles/main.dir/pylon.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/pylon.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/anders/Documents/GitHub/3.-Semsterprojekt/src/pylon.cpp -o CMakeFiles/main.dir/pylon.cpp.s
+
+CMakeFiles/main.dir/gripper.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/gripper.cpp.o: /home/anders/Documents/GitHub/3.-Semsterprojekt/src/gripper.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main.dir/gripper.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/gripper.cpp.o -c /home/anders/Documents/GitHub/3.-Semsterprojekt/src/gripper.cpp
+
+CMakeFiles/main.dir/gripper.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/gripper.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/anders/Documents/GitHub/3.-Semsterprojekt/src/gripper.cpp > CMakeFiles/main.dir/gripper.cpp.i
+
+CMakeFiles/main.dir/gripper.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/gripper.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/anders/Documents/GitHub/3.-Semsterprojekt/src/gripper.cpp -o CMakeFiles/main.dir/gripper.cpp.s
+
 CMakeFiles/main.dir/robot.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/robot.cpp.o: /home/anders/Documents/GitHub/3.-Semsterprojekt/src/robot.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/robot.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/main.dir/robot.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/robot.cpp.o -c /home/anders/Documents/GitHub/3.-Semsterprojekt/src/robot.cpp
 
 CMakeFiles/main.dir/robot.cpp.i: cmake_force
@@ -85,7 +150,7 @@ CMakeFiles/main.dir/robot.cpp.s: cmake_force
 
 CMakeFiles/main.dir/jacobian.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/jacobian.cpp.o: /home/anders/Documents/GitHub/3.-Semsterprojekt/src/jacobian.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/jacobian.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/main.dir/jacobian.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/jacobian.cpp.o -c /home/anders/Documents/GitHub/3.-Semsterprojekt/src/jacobian.cpp
 
 CMakeFiles/main.dir/jacobian.cpp.i: cmake_force
@@ -98,7 +163,7 @@ CMakeFiles/main.dir/jacobian.cpp.s: cmake_force
 
 CMakeFiles/main.dir/kinematics.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/kinematics.cpp.o: /home/anders/Documents/GitHub/3.-Semsterprojekt/src/kinematics.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/kinematics.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/main.dir/kinematics.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/kinematics.cpp.o -c /home/anders/Documents/GitHub/3.-Semsterprojekt/src/kinematics.cpp
 
 CMakeFiles/main.dir/kinematics.cpp.i: cmake_force
@@ -111,7 +176,7 @@ CMakeFiles/main.dir/kinematics.cpp.s: cmake_force
 
 CMakeFiles/main.dir/throw.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/throw.cpp.o: /home/anders/Documents/GitHub/3.-Semsterprojekt/src/throw.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/throw.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/main.dir/throw.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/throw.cpp.o -c /home/anders/Documents/GitHub/3.-Semsterprojekt/src/throw.cpp
 
 CMakeFiles/main.dir/throw.cpp.i: cmake_force
@@ -122,29 +187,127 @@ CMakeFiles/main.dir/throw.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/throw.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/anders/Documents/GitHub/3.-Semsterprojekt/src/throw.cpp -o CMakeFiles/main.dir/throw.cpp.s
 
+CMakeFiles/main.dir/database.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/database.cpp.o: /home/anders/Documents/GitHub/3.-Semsterprojekt/src/database.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/main.dir/database.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/database.cpp.o -c /home/anders/Documents/GitHub/3.-Semsterprojekt/src/database.cpp
+
+CMakeFiles/main.dir/database.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/database.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/anders/Documents/GitHub/3.-Semsterprojekt/src/database.cpp > CMakeFiles/main.dir/database.cpp.i
+
+CMakeFiles/main.dir/database.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/database.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/anders/Documents/GitHub/3.-Semsterprojekt/src/database.cpp -o CMakeFiles/main.dir/database.cpp.s
+
 # Object files for target main
 main_OBJECTS = \
 "CMakeFiles/main.dir/main.cpp.o" \
+"CMakeFiles/main.dir/colourdetection.cpp.o" \
+"CMakeFiles/main.dir/objectdetection.cpp.o" \
+"CMakeFiles/main.dir/camera.cpp.o" \
+"CMakeFiles/main.dir/pylon.cpp.o" \
+"CMakeFiles/main.dir/gripper.cpp.o" \
 "CMakeFiles/main.dir/robot.cpp.o" \
 "CMakeFiles/main.dir/jacobian.cpp.o" \
 "CMakeFiles/main.dir/kinematics.cpp.o" \
-"CMakeFiles/main.dir/throw.cpp.o"
+"CMakeFiles/main.dir/throw.cpp.o" \
+"CMakeFiles/main.dir/database.cpp.o"
 
 # External object files for target main
 main_EXTERNAL_OBJECTS =
 
 main: CMakeFiles/main.dir/main.cpp.o
+main: CMakeFiles/main.dir/colourdetection.cpp.o
+main: CMakeFiles/main.dir/objectdetection.cpp.o
+main: CMakeFiles/main.dir/camera.cpp.o
+main: CMakeFiles/main.dir/pylon.cpp.o
+main: CMakeFiles/main.dir/gripper.cpp.o
 main: CMakeFiles/main.dir/robot.cpp.o
 main: CMakeFiles/main.dir/jacobian.cpp.o
 main: CMakeFiles/main.dir/kinematics.cpp.o
 main: CMakeFiles/main.dir/throw.cpp.o
+main: CMakeFiles/main.dir/database.cpp.o
 main: CMakeFiles/main.dir/build.make
+main: /usr/local/lib/libopencv_gapi.so.4.5.4
+main: /usr/local/lib/libopencv_stitching.so.4.5.4
+main: /usr/local/lib/libopencv_aruco.so.4.5.4
+main: /usr/local/lib/libopencv_barcode.so.4.5.4
+main: /usr/local/lib/libopencv_bgsegm.so.4.5.4
+main: /usr/local/lib/libopencv_bioinspired.so.4.5.4
+main: /usr/local/lib/libopencv_ccalib.so.4.5.4
+main: /usr/local/lib/libopencv_dnn_objdetect.so.4.5.4
+main: /usr/local/lib/libopencv_dnn_superres.so.4.5.4
+main: /usr/local/lib/libopencv_dpm.so.4.5.4
+main: /usr/local/lib/libopencv_face.so.4.5.4
+main: /usr/local/lib/libopencv_freetype.so.4.5.4
+main: /usr/local/lib/libopencv_fuzzy.so.4.5.4
+main: /usr/local/lib/libopencv_hfs.so.4.5.4
+main: /usr/local/lib/libopencv_img_hash.so.4.5.4
+main: /usr/local/lib/libopencv_intensity_transform.so.4.5.4
+main: /usr/local/lib/libopencv_line_descriptor.so.4.5.4
+main: /usr/local/lib/libopencv_mcc.so.4.5.4
+main: /usr/local/lib/libopencv_quality.so.4.5.4
+main: /usr/local/lib/libopencv_rapid.so.4.5.4
+main: /usr/local/lib/libopencv_reg.so.4.5.4
+main: /usr/local/lib/libopencv_rgbd.so.4.5.4
+main: /usr/local/lib/libopencv_saliency.so.4.5.4
+main: /usr/local/lib/libopencv_stereo.so.4.5.4
+main: /usr/local/lib/libopencv_structured_light.so.4.5.4
+main: /usr/local/lib/libopencv_superres.so.4.5.4
+main: /usr/local/lib/libopencv_surface_matching.so.4.5.4
+main: /usr/local/lib/libopencv_tracking.so.4.5.4
+main: /usr/local/lib/libopencv_videostab.so.4.5.4
+main: /usr/local/lib/libopencv_wechat_qrcode.so.4.5.4
+main: /usr/local/lib/libopencv_xfeatures2d.so.4.5.4
+main: /usr/local/lib/libopencv_xobjdetect.so.4.5.4
+main: /usr/local/lib/libopencv_xphoto.so.4.5.4
+main: /usr/lib/x86_64-linux-gnu/librlhal.so.0.7.0
+main: /usr/lib/x86_64-linux-gnu/librlplan.so.0.7.0
 main: /usr/local/lib/librtde.so.1.4.7
+main: /usr/lib/x86_64-linux-gnu/libQt5Sql.so.5.12.8
+main: /usr/local/lib/libopencv_shape.so.4.5.4
+main: /usr/local/lib/libopencv_highgui.so.4.5.4
+main: /usr/local/lib/libopencv_datasets.so.4.5.4
+main: /usr/local/lib/libopencv_plot.so.4.5.4
+main: /usr/local/lib/libopencv_text.so.4.5.4
+main: /usr/local/lib/libopencv_ml.so.4.5.4
+main: /usr/local/lib/libopencv_phase_unwrapping.so.4.5.4
+main: /usr/local/lib/libopencv_optflow.so.4.5.4
+main: /usr/local/lib/libopencv_ximgproc.so.4.5.4
+main: /usr/local/lib/libopencv_video.so.4.5.4
+main: /usr/local/lib/libopencv_videoio.so.4.5.4
+main: /usr/local/lib/libopencv_imgcodecs.so.4.5.4
+main: /usr/local/lib/libopencv_objdetect.so.4.5.4
+main: /usr/local/lib/libopencv_calib3d.so.4.5.4
+main: /usr/local/lib/libopencv_dnn.so.4.5.4
+main: /usr/local/lib/libopencv_features2d.so.4.5.4
+main: /usr/local/lib/libopencv_flann.so.4.5.4
+main: /usr/local/lib/libopencv_photo.so.4.5.4
+main: /usr/local/lib/libopencv_imgproc.so.4.5.4
+main: /usr/local/lib/libopencv_core.so.4.5.4
+main: /usr/lib/libcomedi.so
+main: /usr/lib/x86_64-linux-gnu/libdc1394.so
+main: /usr/lib/x86_64-linux-gnu/librlkin.so.0.7.0
+main: /usr/lib/x86_64-linux-gnu/librlmdl.so.0.7.0
+main: /usr/lib/x86_64-linux-gnu/libnlopt.so
+main: /usr/lib/x86_64-linux-gnu/librlsg.so.0.7.0
+main: /usr/lib/x86_64-linux-gnu/libxml2.so
+main: /usr/lib/x86_64-linux-gnu/libxslt.so
+main: /usr/lib/x86_64-linux-gnu/libz.so
+main: /usr/lib/x86_64-linux-gnu/libBulletCollision.so
+main: /usr/lib/x86_64-linux-gnu/libBulletDynamics.so
+main: /usr/lib/x86_64-linux-gnu/libBulletSoftBody.so
+main: /usr/lib/x86_64-linux-gnu/libLinearMath.so
+main: /usr/lib/x86_64-linux-gnu/libCoin.so
+main: /usr/lib/x86_64-linux-gnu/libode.so
+main: /usr/lib/x86_64-linux-gnu/libsolid3.so
 main: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
 main: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
 main: /usr/lib/x86_64-linux-gnu/libboost_atomic.so.1.71.0
+main: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.12.8
 main: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/anders/Documents/GitHub/3.-Semsterprojekt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

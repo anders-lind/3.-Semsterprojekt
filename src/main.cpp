@@ -5,8 +5,17 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/calib3d.hpp>
+
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/videoio.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/calib3d.hpp>
+
 //Pylon includes
-//#include <pylon/PylonIncludes.h>
+#include <pylon/PylonIncludes.h>
+
 //My program includes
 #include "colourdetection.h"
 #include "objectdetection.h"
@@ -14,9 +23,12 @@
 #include "pylon.h"
 #include "gripper.h"
 #include "robot.h"
-#include<thread>
-#include <chrono>
 #include "database.h"
+
+#include <thread>
+#include <chrono>
+
+
 
 int main(int argc, char* argv[])
 {

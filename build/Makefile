@@ -123,6 +123,114 @@ main/fast:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
+camera.o: camera.cpp.o
+
+.PHONY : camera.o
+
+# target to build an object file
+camera.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/camera.cpp.o
+.PHONY : camera.cpp.o
+
+camera.i: camera.cpp.i
+
+.PHONY : camera.i
+
+# target to preprocess a source file
+camera.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/camera.cpp.i
+.PHONY : camera.cpp.i
+
+camera.s: camera.cpp.s
+
+.PHONY : camera.s
+
+# target to generate assembly for a file
+camera.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/camera.cpp.s
+.PHONY : camera.cpp.s
+
+colourdetection.o: colourdetection.cpp.o
+
+.PHONY : colourdetection.o
+
+# target to build an object file
+colourdetection.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/colourdetection.cpp.o
+.PHONY : colourdetection.cpp.o
+
+colourdetection.i: colourdetection.cpp.i
+
+.PHONY : colourdetection.i
+
+# target to preprocess a source file
+colourdetection.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/colourdetection.cpp.i
+.PHONY : colourdetection.cpp.i
+
+colourdetection.s: colourdetection.cpp.s
+
+.PHONY : colourdetection.s
+
+# target to generate assembly for a file
+colourdetection.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/colourdetection.cpp.s
+.PHONY : colourdetection.cpp.s
+
+database.o: database.cpp.o
+
+.PHONY : database.o
+
+# target to build an object file
+database.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/database.cpp.o
+.PHONY : database.cpp.o
+
+database.i: database.cpp.i
+
+.PHONY : database.i
+
+# target to preprocess a source file
+database.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/database.cpp.i
+.PHONY : database.cpp.i
+
+database.s: database.cpp.s
+
+.PHONY : database.s
+
+# target to generate assembly for a file
+database.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/database.cpp.s
+.PHONY : database.cpp.s
+
+gripper.o: gripper.cpp.o
+
+.PHONY : gripper.o
+
+# target to build an object file
+gripper.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/gripper.cpp.o
+.PHONY : gripper.cpp.o
+
+gripper.i: gripper.cpp.i
+
+.PHONY : gripper.i
+
+# target to preprocess a source file
+gripper.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/gripper.cpp.i
+.PHONY : gripper.cpp.i
+
+gripper.s: gripper.cpp.s
+
+.PHONY : gripper.s
+
+# target to generate assembly for a file
+gripper.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/gripper.cpp.s
+.PHONY : gripper.cpp.s
+
 jacobian.o: jacobian.cpp.o
 
 .PHONY : jacobian.o
@@ -204,6 +312,60 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+objectdetection.o: objectdetection.cpp.o
+
+.PHONY : objectdetection.o
+
+# target to build an object file
+objectdetection.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/objectdetection.cpp.o
+.PHONY : objectdetection.cpp.o
+
+objectdetection.i: objectdetection.cpp.i
+
+.PHONY : objectdetection.i
+
+# target to preprocess a source file
+objectdetection.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/objectdetection.cpp.i
+.PHONY : objectdetection.cpp.i
+
+objectdetection.s: objectdetection.cpp.s
+
+.PHONY : objectdetection.s
+
+# target to generate assembly for a file
+objectdetection.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/objectdetection.cpp.s
+.PHONY : objectdetection.cpp.s
+
+pylon.o: pylon.cpp.o
+
+.PHONY : pylon.o
+
+# target to build an object file
+pylon.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/pylon.cpp.o
+.PHONY : pylon.cpp.o
+
+pylon.i: pylon.cpp.i
+
+.PHONY : pylon.i
+
+# target to preprocess a source file
+pylon.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/pylon.cpp.i
+.PHONY : pylon.cpp.i
+
+pylon.s: pylon.cpp.s
+
+.PHONY : pylon.s
+
+# target to generate assembly for a file
+pylon.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/pylon.cpp.s
+.PHONY : pylon.cpp.s
+
 robot.o: robot.cpp.o
 
 .PHONY : robot.o
@@ -267,6 +429,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... main"
+	@echo "... camera.o"
+	@echo "... camera.i"
+	@echo "... camera.s"
+	@echo "... colourdetection.o"
+	@echo "... colourdetection.i"
+	@echo "... colourdetection.s"
+	@echo "... database.o"
+	@echo "... database.i"
+	@echo "... database.s"
+	@echo "... gripper.o"
+	@echo "... gripper.i"
+	@echo "... gripper.s"
 	@echo "... jacobian.o"
 	@echo "... jacobian.i"
 	@echo "... jacobian.s"
@@ -276,6 +450,12 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... objectdetection.o"
+	@echo "... objectdetection.i"
+	@echo "... objectdetection.s"
+	@echo "... pylon.o"
+	@echo "... pylon.i"
+	@echo "... pylon.s"
 	@echo "... robot.o"
 	@echo "... robot.i"
 	@echo "... robot.s"
