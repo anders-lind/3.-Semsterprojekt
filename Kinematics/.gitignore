@@ -1,3 +1,0 @@
-# ignore the "CMakeLists.txt.user" file when synchronizing
-CMakeLists.txt.user
-src/CMakeLists.txt.user
