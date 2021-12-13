@@ -85,21 +85,6 @@ void robot::goToThrowPos(vector<double> qThrowPosDegrees){
 
 void robot::throwBall(std::vector<double> goalCoordinates, double angle, double time, bool isSimulation)
 {
-    // // Used to control timing
-    // double stepTime = m_control->getStepTime();
-    // chrono::time_point<chrono::system_clock> start, end;
-    // chrono::duration<double> currentDuration;
-    // start = chrono::system_clock::now();
-
-
-    // do{
-
-    //     sleep(stepTime);
-    //     currentDuration = chrono::system_clock::now() - start;
-    // }
-    // while (currentDuration.count() < time)
-
-
     // Joint values for throw position
     std::vector<double> q_kVec = m_recieve->getTargetQ();      // Default value = {99, -90, 106, -124, -85, -101}
 
