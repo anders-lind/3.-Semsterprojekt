@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<R2T type_id="opencv-matrix">
+  <rows>4</rows>
+  <cols>4</cols>
+  <dt>f</dt>
+  <data>
+    3.48309636e-01 -9.37379479e-01 -2.78313109e-15 3.67386341e-01
+    -9.37379479e-01 -3.48309606e-01 -3.17952557e-15 -4.78272140e-02 0.
+    0. 1. 1.73999995e-01 0. 0. 0. 1.</data></R2T>
+</opencv_storage>
