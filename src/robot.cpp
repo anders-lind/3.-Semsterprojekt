@@ -65,7 +65,7 @@ void robot::startingPosition()
     m_control->moveJ(coordinates, speed, acc, async);
 }
 
-void robot::pickUpBall(std::vector<double> coordinates)
+void robot::pickUpBall(std::vector<double> coordinates, bool isSimulation = false)
 {
     //Sets speed, acceleration, move syncronous or not
     double speed = 3;
@@ -74,16 +74,16 @@ void robot::pickUpBall(std::vector<double> coordinates)
     //Moves the robot
     //m_control->moveL(coordinates, speed, acc, async);
     m_control->moveL(coordinates);
-    m_gripper->graspObject();
+    if (!isSimulation)
+        m_gripper->graspObject();
 }
 
-void robot::goToThrowPos(){
-    std::vector<double> qThrowPos = {99, -90, 106, -124, - 85, -101};
-    radConversion(qThrowPos);
-    m_control->moveJ(qThrowPos);
+void robot::goToThrowPos(vector<double> qThrowPosDegrees){
+    radConversion(qThrowPosDegrees);
+    m_control->moveJ(qThrowPosDegrees);
 }
 
-void robot::throwBall(std::vector<double> goalCoordinates, double angle, double time)
+void robot::throwBall(std::vector<double> goalCoordinates, double angle, double time, bool isSimulation)
 {
     // // Used to control timing
     // double stepTime = m_control->getStepTime();
@@ -144,11 +144,20 @@ void robot::throwBall(std::vector<double> goalCoordinates, double angle, double 
 
     // Make throw
     cout << "Throw!" << endl;
-    std::thread t1(&gripper::releaseObject, *m_gripper, time);
-    m_control->speedJ(jacobian::eig2Vec(qp_k), max_acc, time);
-    std::this_thread::sleep_for(std::chrono::duration<double>(time));
-    m_control->speedStop();
-    t1.join();
+    if (!isSimulation){
+        std::thread t1(&gripper::releaseObject, *m_gripper, time);
+        m_control->speedJ(jacobian::eig2Vec(qp_k), max_acc, time);
+        std::this_thread::sleep_for(std::chrono::duration<double>(time));
+        m_control->speedStop();
+        t1.join();
+    }
+    
+    if (isSimulation){
+        m_control->speedJ(jacobian::eig2Vec(qp_k), max_acc, time);
+        std::this_thread::sleep_for(std::chrono::duration<double>(time));
+        m_control->speedStop();
+    }
+        
 }
 
 /*
@@ -223,8 +232,9 @@ vector<double> robot::getActualTCPPose()
     return m_recieve->getActualTCPPose();
 }
 
-void robot::closeConnections(){
-    m_gripper->closeConnection();
+void robot::closeConnections(bool isSimulation){
+    if (!isSimulation)
+        m_gripper->closeConnection();
     m_control->disconnect();
     m_recieve->disconnect();
 }

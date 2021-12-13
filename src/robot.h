@@ -29,10 +29,10 @@ public:
     std::vector<double> getActualTCPPose();
     //Program kommandoer
     void startingPosition();
-    void pickUpBall(std::vector<double> coordinates);
-    void goToThrowPos();
-    void throwBall(std::vector<double> x_m_goalCoordinates, double angle = 0, double time = 0.25);
-    void closeConnections();
+    void pickUpBall(std::vector<double> coordinates, bool isSimulation);
+    void goToThrowPos(std::vector<double> qThrowPosDegrees = {99, -90, 106, -124, - 85, -101});
+    void throwBall(std::vector<double> x_m_goalCoordinates, double angle = 0, double time = 0.25, bool isSimulation = false);
+    void closeConnections(bool isSimulation = false);
     void radConversion(std::vector<double> &jPose);
 
 private:
