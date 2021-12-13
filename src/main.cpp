@@ -76,10 +76,10 @@ int main(int argc, char* argv[])
     //Robot
     //Robot test in cell:
 
-    //bool isSimulation = false;
-    // robot r("192.168.100.49", "192.168.100.10");
-    bool isSimulation = true;
-    robot r("127.0.0.1");
+    bool isSimulation = false;
+    robot r("192.168.100.49", "192.168.100.10");
+    // bool isSimulation = true;
+    // robot r("127.0.0.1");
 
     cout << "Start position" << endl;
     r.startingPosition();
