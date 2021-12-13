@@ -81,10 +81,10 @@ int main(int argc, char **argv) {
               << k << std::endl;
 
     //Lav en txt fil til at calibrere med
-  cv::FileStorage fileK("K3.xml", cv::FileStorage::WRITE);
+  cv::FileStorage fileK("K2.xml", cv::FileStorage::WRITE);
   fileK << "K" << cv::Mat(K);
 
-  cv::FileStorage filek("k3.xml", cv::FileStorage::WRITE);
+  cv::FileStorage filek("k2.xml", cv::FileStorage::WRITE);
   filek << "k" << cv::Vec<float, 5>(k);
 
     // Precompute lens correction interpolation
