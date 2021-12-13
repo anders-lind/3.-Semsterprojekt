@@ -7,7 +7,7 @@ Database::Database()
     db.setHostName("localhost");
     db.setDatabaseName("semesterprojekt");
     db.setUserName("root");
-    db.setPassword("Afj52npr1119");
+    db.setPassword("");
     if (db.open()){
         std::cout << "Database loaded" << std::endl;
     }
@@ -24,9 +24,9 @@ void Database::create_tables() {
     std::cout << "Genererer tables vent venligst..." << std::endl;
 
     query.prepare("create table if not exists kast_data(kastid int not null auto_increment,\
-                  lenght double(100, 4) not null, acceleration double(100, 4) not null,\
-                  speed double(100, 10) not null, time double(100, 5) not null, ramt int not null, \
-                  misset int not null, primary key(kastid));");
+                  lenght double(100, 4) not null, cartesianAcceleration double(100, 4) not null,\
+                  maxJointAcc double(100, 4) not null, speed double(100, 10) not null, time double(100, 5) not null, \
+                  ramt bool not null, angle double not null, primary key(kastid));");
 
     bool success = false;
     success = query.exec();
@@ -92,11 +92,11 @@ void Database::create_tables() {
     std::cout << "Alle tables genereret! Opdaterer key connections..." << std::endl;
 
     //query.exec("ALTER TABLE `semesterprojekt`.`joint_nulpunkt` \
-               ADD CONSTRAINT `nulpunkt_kastid` \
-               FOREIGN KEY (`nulpunktid`)\
-               REFERENCES `semesterprojekt`.`kast_data` (`kastid`);\
-            \
-            ALTER TABLE `semesterprojekt`.`joint_slut` \
+    ADD CONSTRAINT `nulpunkt_kastid` \
+            FOREIGN KEY (`nulpunktid`)\
+            REFERENCES `semesterprojekt`.`kast_data` (`kastid`);\
+    \
+    ALTER TABLE `semesterprojekt`.`joint_slut` \
             ADD CONSTRAINT `slut_kastid`\
             FOREIGN KEY (`slutid`)\
             REFERENCES `semesterprojekt`.`kast_data` (`kastid`);\
@@ -242,43 +242,7 @@ void Database::add_kopposition(std::vector<double> robotCupCoordinates)
     std::cout << "Kopdata indsat: " << "(X: " << x_coord << " | Y: " << y_coord << ")" << std::endl;
 }
 
-void Database::add_joint_nulpunkt(std::vector<double> nulpunktJointValues)
-{
-    QSqlQuery query;
-
-    //Opdater disse værdier
-    double j1 = nulpunktJointValues.at(0);
-    double j2 = nulpunktJointValues.at(1);
-    double j3 = nulpunktJointValues.at(2);
-    double j4 = nulpunktJointValues.at(3);
-    double j5 = nulpunktJointValues.at(4);
-    double j6 = nulpunktJointValues.at(5);
-
-    std::cout << "Joint data opdateret" << std::endl;
-
-    query.prepare("INSERT INTO joint_nulpunkt (j1, j2, j3, j4, j5, j6) "
-                  "VALUES(:j1, :j2, :j3, :j4, :j5, :j6);");
-
-    query.bindValue(":j1", j1);
-    query.bindValue(":j2", j2);
-    query.bindValue(":j3", j3);
-    query.bindValue(":j4", j4);
-    query.bindValue(":j5", j5);
-    query.bindValue(":j6", j6);
-
-    bool success = false;
-    success = query.exec();
-    if (!success) {
-        qDebug() << query.lastError();
-        db.rollback();
-    }
-
-    std::cout << "Joint nulpunkt data indsat: " << "(J1: " << j1 << " | J2: " << j2
-              << " | J3: " << j3 << " | J4: " << j4
-              << " | J5: " << j5 << " | J6: " << j6 << ")" << std::endl;
-}
-
-void Database::add_joint_slut(std::vector<double> kastJointValues)
+void Database::add_joint_throw_values(std::vector<double> kastJointValues)
 {
     QSqlQuery query;
 
@@ -313,39 +277,28 @@ void Database::add_joint_slut(std::vector<double> kastJointValues)
               << " | J5: " << j5 << " | J6: " << j6 << ")" << std::endl;
 }
 
-void Database::add_kast_data() //Skal vi lige finde ud af
+void Database::add_kast_data(std::vector<double> robotCupCoordinates, std::vector<double> robotThrowPos, double time, bool hit, double angle, double maxJointAcc, double speed) //Skal vi lige finde ud af
 {
     QSqlQuery query;
-    std::vector<std::vector<double>> kast_data_liste;
-    std::vector<double> data;
 
-    double lenght = 1;
-    double acceleration = 2;
-    double speed = 3;
-    double time = 4;
-    int ramt = 1;
-    int misset = 0;
+    double lenght = 0;
+    for(int i = 0; i < 3; ++i){
+        lenght += (robotCupCoordinates.at(i) - robotThrowPos.at(i)) * (robotCupCoordinates.at(i) - robotThrowPos.at(i));
+    }
+    lenght = std::sqrt(lenght);
 
-    data.emplace_back(lenght);
-    data.emplace_back(acceleration);
-    data.emplace_back(speed);
-    data.emplace_back(time);
-    data.emplace_back(ramt);
-    data.emplace_back(misset);
+    double cartesianAcceleration = lenght/time;
 
-    kast_data_liste.emplace_back(data);
-
-    std::cout << "Kast data opdateret" << std::endl;
-
-    query.prepare("INSERT INTO kast_data (lenght, acceleration, speed, time, ramt, misset) "
-                  "VALUES(:lenght, :acceleration, :speed, :time, :ramt, :misset);");
+    query.prepare("INSERT INTO kast_data (lenght, acceleration, speed, time, ramt, angle) "
+                  "VALUES(:lenght, :cartesianAcceleration, :maxAcceleration, :speed, :time, :ramt, :angle);");
 
     query.bindValue(":lenght", lenght);
-    query.bindValue(":acceleration", acceleration);
+    query.bindValue(":cartesianAcceleration", cartesianAcceleration);
+    query.bindValue(":maxAcceleration", maxJointAcc);
     query.bindValue(":speed", speed);
     query.bindValue(":time", time);
-    query.bindValue(":ramt", ramt);
-    query.bindValue(":misset", misset);
+    query.bindValue(":ramt", hit);
+    query.bindValue(":angle", angle);
 
     bool success = false;
     success = query.exec();
@@ -354,7 +307,8 @@ void Database::add_kast_data() //Skal vi lige finde ud af
         db.rollback();
     }
 
-    std::cout << "Kast data indsat: " << "(Lenght: " << lenght << " | acceleration: " << acceleration
+    std::cout << "Kast data indsat: " << "(Lenght: " << lenght << " | acceleration: " << cartesianAcceleration
               << " | speed: " << speed << " | time: " << time
-              << " | ramt: " << ramt << " | misset: " << misset << ")" << std::endl;
+              << " | ramt: " << hit << " | maxJointAcc: " << maxJointAcc
+              << " | angle: " << angle << ")" << std::endl;
 }

@@ -65,7 +65,7 @@ void robot::startingPosition()
     m_control->moveJ(coordinates, speed, acc, async);
 }
 
-void robot::pickUpBall(std::vector<double> coordinates, bool isSimulation = false)
+void robot::pickUpBall(std::vector<double> coordinates, bool isSimulation)
 {
     //Sets speed, acceleration, move syncronous or not
     double speed = 3;
@@ -83,8 +83,23 @@ void robot::goToThrowPos(vector<double> qThrowPosDegrees){
     m_control->moveJ(qThrowPosDegrees);
 }
 
-void robot::throwBall(std::vector<double> goalCoordinates, double angle, double time, bool isSimulation)
+void robot::throwBall(double &max_acc, double &speed, std::vector<double> goalCoordinates, double angle, double time, bool isSimulation)
 {
+    // // Used to control timing
+    // double stepTime = m_control->getStepTime();
+    // chrono::time_point<chrono::system_clock> start, end;
+    // chrono::duration<double> currentDuration;
+    // start = chrono::system_clock::now();
+
+
+    // do{
+
+    //     sleep(stepTime);
+    //     currentDuration = chrono::system_clock::now() - start;
+    // }
+    // while (currentDuration.count() < time)
+
+
     // Joint values for throw position
     std::vector<double> q_kVec = m_recieve->getTargetQ();      // Default value = {99, -90, 106, -124, -85, -101}
 
@@ -103,15 +118,17 @@ void robot::throwBall(std::vector<double> goalCoordinates, double angle, double 
     Kinematics kin;
 
     // Calculate cartisian throw speed
-    Eigen::MatrixXd xp_k = kin.calc_xp_k(x_k, x_m, angle);
+    Eigen::MatrixXd xp_k(6,1);
+    xp_k = kin.calc_xp_k(x_k, x_m, angle);
     cout << "xp_k = \n" << xp_k << endl << endl;
+    speed = xp_k.norm();
 
     // Calculate joint throw speed
     Eigen::MatrixXd qp_k = kin.calc_qp_k(q_k, xp_k);
 
     // Calculate joint acceleration of throw
     Eigen::MatrixXd acc = kin.calc_acc(qp_k, time);
-    double max_acc = kin.calc_max_acc(acc);
+    max_acc = kin.calc_max_acc(acc);
     cout << "acc = \n" << acc << " max acc = " << max_acc << endl << endl;
 
 
@@ -136,13 +153,13 @@ void robot::throwBall(std::vector<double> goalCoordinates, double angle, double 
         m_control->speedStop();
         t1.join();
     }
-    
+
     if (isSimulation){
         m_control->speedJ(jacobian::eig2Vec(qp_k), max_acc, time);
         std::this_thread::sleep_for(std::chrono::duration<double>(time));
         m_control->speedStop();
     }
-        
+
 }
 
 /*

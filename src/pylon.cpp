@@ -2,8 +2,6 @@
 #include <pylon/PylonIncludes.h>
 #include "camera.h"
 
-//Dette er et forsøg på at skrive pylonklassen ind i en klasse skal testes.
-
 pylon::pylon()
 {
 

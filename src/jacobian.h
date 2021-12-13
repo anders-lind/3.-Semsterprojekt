@@ -23,8 +23,6 @@ public:
     Eigen::MatrixXd forward(Eigen::MatrixXd jointValues);
     void update(Eigen::MatrixXd jointValues);
 
-
-
 private:
     Eigen::MatrixXd J{6,6};
 };

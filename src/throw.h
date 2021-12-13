@@ -4,7 +4,6 @@
 #include <vector>
 #include <eigen3/Eigen/Dense>
 
-
 class Throw
 {
 public:
@@ -30,11 +29,9 @@ public:
     std::vector<double> getDistance() {return _distanceVector;};
     double getSpeed() {return _speed;};
 
-
 private:
     std::vector<double> _startCoordinates;
     std::vector<double> _targetCoordinates;
-
     std::vector<double> _distanceVector;
 
     double _throwAngle;

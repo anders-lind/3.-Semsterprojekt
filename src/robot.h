@@ -12,7 +12,6 @@
 #include "jacobian.h"
 #include "gripper.h"
 
-
 class robot
 {
 public:
@@ -22,6 +21,7 @@ public:
     robot(std::string robotIP);
     //Constructor til program
     robot(std::string robotIP, std::string gripperIP);
+
     //Robotcommandoer
     void moveJ(std::vector<double> jointValues);
     void moveL(std::vector<double> coordinates);
@@ -29,9 +29,9 @@ public:
     std::vector<double> getActualTCPPose();
     //Program kommandoer
     void startingPosition();
-    void pickUpBall(std::vector<double> coordinates, bool isSimulation);
+    void pickUpBall(std::vector<double> coordinates, bool isSimulation = false);
     void goToThrowPos(std::vector<double> qThrowPosDegrees = {99, -90, 106, -124, - 85, -101});
-    void throwBall(std::vector<double> x_m_goalCoordinates, double angle = 0, double time = 0.25, bool isSimulation = false);
+    void throwBall(double &max_acc, double &speed, std::vector<double> x_m_goalCoordinates, double angle = 0, double time = 0.25, bool isSimulation = false);
     void closeConnections(bool isSimulation = false);
     void radConversion(std::vector<double> &jPose);
 

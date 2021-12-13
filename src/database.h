@@ -9,7 +9,6 @@
 #include<iostream>
 #include<QDebug>
 
-
 class Database
 {
 public:
@@ -17,9 +16,8 @@ public:
 
     void add_boldposition(std::vector<double> robotBallCoordinates);
     void add_kopposition(std::vector<double> robotCupCoordinates);
-    void add_joint_nulpunkt(std::vector<double> nulpunktJointValues);
-    void add_joint_slut(std::vector<double> kastJointValues);
-    void add_kast_data();
+    void add_joint_throw_values(std::vector<double> kastJointValues);
+    void add_kast_data(std::vector<double> robotCupCoordinates, std::vector<double> robotThrowPos, double time, bool hit, double angle, double maxJointAcc, double speed);
 
     void sync_data();
     void create_tables();
