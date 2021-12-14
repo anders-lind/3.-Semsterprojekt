@@ -86,23 +86,8 @@ void robot::goToThrowPos(vector<double> qThrowPosDegrees){
     m_control->moveJ(qThrowPosDegrees);
 }
 
-void robot::throwBall(double &max_acc, double &speed, std::vector<double> goalCoordinates, double angle, double time, bool isSimulation)
+void robot::throwBall(double &max_acc, double &speed, std::vector<double> goalCoordinates, double angle, double time, double qpp_max, bool isSimulation)
 {
-    // // Used to control timing
-    // double stepTime = m_control->getStepTime();
-    // chrono::time_point<chrono::system_clock> start, end;
-    // chrono::duration<double> currentDuration;
-    // start = chrono::system_clock::now();
-
-
-    // do{
-
-    //     sleep(stepTime);
-    //     currentDuration = chrono::system_clock::now() - start;
-    // }
-    // while (currentDuration.count() < time)
-
-
     // Joint values for throw position
     std::vector<double> q_kVec = m_recieve->getTargetQ();      // Default value = {99, -90, 106, -124, -85, -101}
 
@@ -120,6 +105,7 @@ void robot::throwBall(double &max_acc, double &speed, std::vector<double> goalCo
 
     Kinematics kin;
 
+
     // Calculate cartisian throw speed
     Eigen::MatrixXd xp_k(6,1);
     xp_k = kin.calc_xp_k(x_k, x_m, angle);
@@ -128,6 +114,22 @@ void robot::throwBall(double &max_acc, double &speed, std::vector<double> goalCo
 
     // Calculate joint throw speed
     Eigen::MatrixXd qp_k = kin.calc_qp_k(q_k, xp_k);
+    
+
+    // Calculate time of throw if no time is given
+    double qp_max = -0;
+    if (time <= 0){
+        // first we find the highest joint speed
+        for (int i = 0; i < 6; i++){
+            if (abs(qp_k(i)) > abs(qp_max))
+                qp_max = qp_k(i);
+        }
+        cout << "hastighed qp_k = " << qp_k << " max qp_k = " << qp_max << endl;
+    
+        // Find time from highest velocity and acc
+        time = abs(qp_max) / qpp_max;
+        cout << "tiden er udregnet til t = " << time << " sekunder" << endl;
+    }
 
     // Calculate joint acceleration of throw
     Eigen::MatrixXd acc = kin.calc_acc(qp_k, time);
@@ -147,6 +149,7 @@ void robot::throwBall(double &max_acc, double &speed, std::vector<double> goalCo
     m_control->moveJ(jacobian::eig2Vec(q_s),1,3,false);
     std::this_thread::sleep_for(std::chrono::duration<double>(1));
 
+
     // Make throw
     cout << "Throw!" << endl;
     if (!isSimulation){
@@ -156,10 +159,9 @@ void robot::throwBall(double &max_acc, double &speed, std::vector<double> goalCo
         m_control->speedStop();
         t1.join();
     }
-
     if (isSimulation){
         m_control->speedJ(jacobian::eig2Vec(qp_k), max_acc, time);
-        std::this_thread::sleep_for(std::chrono::duration<double>(time));
+        std::this_thread::sleep_for(std::chrono::duration<double>(time/2));
         m_control->speedStop();
     }
 

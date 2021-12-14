@@ -31,7 +31,7 @@ public:
     void startingPosition();
     void pickUpBall(std::vector<double> coordinates, bool isSimulation = false);
     void goToThrowPos(std::vector<double> qThrowPosDegrees = {99, -90, 106, -124, - 85, -101});
-    void throwBall(double &max_acc, double &speed, std::vector<double> x_m_goalCoordinates, double angle = 0, double time = 0.25, bool isSimulation = false);
+    void throwBall(double &max_acc, double &speed, std::vector<double> x_m_goalCoordinates, double angle = 0, double time = 0.25, double qpp_max = 0, bool isSimulation = false);
     void closeConnections(bool isSimulation = false);
     void radConversion(std::vector<double> &jPose);
 
