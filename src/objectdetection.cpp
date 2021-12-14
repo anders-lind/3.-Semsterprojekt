@@ -244,6 +244,13 @@ std::vector<double> objectDetection::convertCoordinates(cv::Point2f coordinate, 
     //Robot to table calibration
     coorMat = R2T * coorMat.reshape(1).t();
     //Lav til en vektor
-    std::vector<double> robotCoor = {coorMat.at<float>(0,0), coorMat.at<float>(0,1), coorMat.at<float>(0,2), 3.14, 0, 0};
+    std::vector<double> robotCoor;
+    if(coordinate.y < 35){
+        robotCoor = {coorMat.at<float>(0,0), coorMat.at<float>(0,1), coorMat.at<float>(0,2), 3.14, 0, 0};
+    }else if(coordinate.y >= 35){
+        robotCoor = {coorMat.at<float>(0,0), coorMat.at<float>(0,1), coorMat.at<float>(0,2), 0, 3.14, 0};
+    }else{
+        std::cerr << "No cup or ball found!!!" << std::endl;
+    }
     return robotCoor;
 }

@@ -54,8 +54,11 @@ robot::robot(std::string robotIP, std::string gripperIP)
 void robot::startingPosition()
 {
     //Sets the coordinates to our zero position and converts to rad
-    std::vector<double> coordinates = {130, -110, 125, -130, -62, -72};
-    //std::vector<double> coordinates = {130, -110, 125, -120, -89, -159};
+    //Første vi havde
+    //std::vector<double> coordinates = {130, -110, 125, -130, -62, -72};
+    //Tests
+    std::vector<double> coordinates = {98, -99, 119, -158, -85, -74};
+    //std::vector<double> coordinates = {66, -97, 133, -158, -84, -82};
     radConversion(coordinates);
     //Sets speed, acceleration, move syncronous or not
     double speed = 3;

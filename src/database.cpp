@@ -7,7 +7,7 @@ Database::Database()
     db.setHostName("localhost");
     db.setDatabaseName("semesterprojekt");
     db.setUserName("root");
-    db.setPassword("");
+    db.setPassword("1234");
     if (db.open()){
         std::cout << "Database loaded" << std::endl;
     }
@@ -187,7 +187,7 @@ void Database::connect() {
     db.setHostName("localhost");
     db.setDatabaseName("semesterprojekt");
     db.setUserName("root");
-    db.setPassword("root");
+    db.setPassword("1234");
     if(db.open()) {
         std::cout << "Forbindelse oprettet!" << std::endl;
     }
@@ -289,12 +289,12 @@ void Database::add_kast_data(std::vector<double> robotCupCoordinates, std::vecto
 
     double cartesianAcceleration = lenght/time;
 
-    query.prepare("INSERT INTO kast_data (lenght, acceleration, speed, time, ramt, angle) "
-                  "VALUES(:lenght, :cartesianAcceleration, :maxAcceleration, :speed, :time, :ramt, :angle);");
+    query.prepare("INSERT INTO kast_data (lenght, cartesianAcceleration, maxJointAcc, speed, time, ramt, angle) "
+                  "VALUES(:lenght, :cartesianAcceleration, :maxJointAcc, :speed, :time, :ramt, :angle);");
 
     query.bindValue(":lenght", lenght);
     query.bindValue(":cartesianAcceleration", cartesianAcceleration);
-    query.bindValue(":maxAcceleration", maxJointAcc);
+    query.bindValue(":maxJointAcc", maxJointAcc);
     query.bindValue(":speed", speed);
     query.bindValue(":time", time);
     query.bindValue(":ramt", hit);
