@@ -10,8 +10,8 @@ void colourDetection::DetectGreen(cv::Mat input, cv::Mat &output)
     //Initializes temporary images for computation:
     cv::Mat imgHSV;
     //HSV values for the green colour wanted:
-    int hmin = 49, smin = 236, vmin = 59;
-    int hmax = 80, smax = 255, vmax = 124;
+    int hmin = 58, smin = 231, vmin = 42;
+    int hmax = 72, smax = 255, vmax = 97;
     //Convertion to HSV-colourspace from RGB-colourspace:
     cv::cvtColor(input, imgHSV, cv::COLOR_BGR2HSV);
 
@@ -31,8 +31,8 @@ void colourDetection::DetectBlue(cv::Mat input, cv::Mat &output)
     //Initializes temporary images for computation:
     cv::Mat imgHSV;
     //HSV values for the blue colour wanted:
-    int hmin = 90, smin = 107, vmin = 28;
-    int hmax = 101, smax = 255, vmax = 100;
+    int hmin = 87, smin = 134, vmin = 13;
+    int hmax = 120, smax = 255, vmax = 84;
     //Convertion to HSV-colourspace from RGB-colourspace:
     cv::cvtColor(input, imgHSV, cv::COLOR_BGR2HSV);
 
@@ -73,8 +73,8 @@ void colourDetection::DetectOrange(cv::Mat input, cv::Mat &output)
     //Initializes temporary images for computation:
     cv::Mat imgHSV;
     //HSV values for the orange colour wanted:
-    int hmin = 1, smin = 255, vmin = 115;
-    int hmax = 20, smax = 255, vmax = 219;
+    int hmin = 0, smin = 255, vmin = 66;
+    int hmax = 20, smax = 255, vmax = 165;
     //Convertion to HSV-colourspace from RGB-colourspace:
     cv::cvtColor(input, imgHSV, cv::COLOR_BGR2HSV);
 
@@ -94,8 +94,8 @@ void colourDetection::DetectYellow(cv::Mat input, cv::Mat &output)
     //Initializes temporary images for computation:
     cv::Mat imgHSV;
     //HSV values for the yellow colour wanted:
-    int hmin = 20, smin = 255, vmin = 68;
-    int hmax = 30, smax = 255, vmax = 204;
+    int hmin = 25, smin = 255, vmin = 66;
+    int hmax = 38, smax = 255, vmax = 165;
     //Convertere til HSV-colourspace fra RGB-colourspace
     cv::cvtColor(input, imgHSV, cv::COLOR_BGR2HSV);
 
@@ -135,6 +135,7 @@ void colourDetection::CalibrateColours(cv::Mat input)
         //Applying colourfilter to the image:
         cv::inRange(imgHSV, lower, upper, mask);
         //Show the colour mask:
+        cv::resize(mask, mask, cv::Size(mask.cols * 0.8, mask.rows * 0.8));
         cv::imshow("Image mask", mask);
         cv::waitKey(1);
     }

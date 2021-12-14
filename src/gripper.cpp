@@ -39,9 +39,10 @@ void gripper::graspObject()
 
 void gripper::releaseObject(double time)
 {
-    std::this_thread::sleep_for(std::chrono::duration<double>(time - 0.04));
+    std::this_thread::sleep_for(std::chrono::duration<double>(time - 0.06));
     m_gripper->doPrePositionFingers(0.06f, 0.4, false, false);
     std::cout << "Gripper has released the object" << std::endl;
+    m_gripper->doPrePositionFingers(0.09f, 0.4, false, false);
 }
 
 void gripper::graspObjectDia(float Diameter)

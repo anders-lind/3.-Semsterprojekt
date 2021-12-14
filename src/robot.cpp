@@ -76,9 +76,14 @@ void robot::pickUpBall(std::vector<double> coordinates, bool isSimulation)
     bool async = false;
     //Moves the robot
     //m_control->moveL(coordinates, speed, acc, async);
+    std::vector<double> tmp(6);
+    tmp = coordinates;
+    tmp.at(2) = 0.200;
+    m_control->moveL(tmp);
     m_control->moveL(coordinates);
     if (!isSimulation)
         m_gripper->graspObject();
+    m_control->moveL(tmp);
 }
 
 void robot::goToThrowPos(vector<double> qThrowPosDegrees){
@@ -114,7 +119,7 @@ void robot::throwBall(double &max_acc, double &speed, std::vector<double> goalCo
 
     // Calculate joint throw speed
     Eigen::MatrixXd qp_k = kin.calc_qp_k(q_k, xp_k);
-    
+
 
     // Calculate time of throw if no time is given
     double qp_max = -0;
@@ -125,7 +130,7 @@ void robot::throwBall(double &max_acc, double &speed, std::vector<double> goalCo
                 qp_max = qp_k(i);
         }
         cout << "hastighed qp_k = " << qp_k << " max qp_k = " << qp_max << endl;
-    
+
         // Find time from highest velocity and acc
         time = abs(qp_max) / qpp_max;
         cout << "tiden er udregnet til t = " << time << " sekunder" << endl;
@@ -156,7 +161,7 @@ void robot::throwBall(double &max_acc, double &speed, std::vector<double> goalCo
         std::thread t1(&gripper::releaseObject, *m_gripper, time);
         m_control->speedJ(jacobian::eig2Vec(qp_k), max_acc, time);
         std::this_thread::sleep_for(std::chrono::duration<double>(time));
-        m_control->speedStop();
+        m_control->speedStop(30);
         t1.join();
     }
     if (isSimulation){
@@ -173,40 +178,29 @@ void robot::throwBall(std::vector<double> goalCoordinates, double t)
     // Joint values for throw position
     std::vector<double> q_kV = {99, -90, 106, -124, -85, -101};
     radConversion(q_kV);
-
     // Cartisian coordinates for throw position
     std::vector<double> x_kV = {0.4674, -0.1943, -0.043, 0, 0, 0};
     Eigen::MatrixXd x_mE = jacobian::vec2Eig(goalCoordinates);
-
-
     Kinematics kin;
-
     // COnvert from std::vector to Eigen Matrix
     Eigen::MatrixXd x_kE = jacobian::vec2Eig(x_kV);
-
     // Calculate cartisian throw speed
     Eigen::MatrixXd xp_k = kin.calc_xp_k(x_kE, x_mE);
-
     // Calculate joint throw speed
     Eigen::MatrixXd qp_k = kin.calc_qp_k(jacobian::vec2Eig(q_kV), xp_k);
-
     // Calculate joint acceleration of throw
     Eigen::MatrixXd acc = kin.calc_acc(qp_k, t);
-
     double max_acc = kin.calc_max_acc(acc);
-
     // Calculate start position
     std::vector<double> qp_k_Neg(6);
     for(int i = 0; i < jacobian::eig2Vec(qp_k).size(); ++i){
         qp_k_Neg.at(i) = jacobian::eig2Vec(qp_k).at(i) * (-1);
     }
-
     // Go to x_s
     m_control->speedJ(qp_k_Neg, max_acc, t);
     std::this_thread::sleep_for(std::chrono::duration<double>(t)); // Skal msåke kun bruges når man bruger den rigtige robot
     m_control->speedStop();
     std::this_thread::sleep_for(std::chrono::duration<double>(2));
-
     // Make throw
     m_control->speedJ(jacobian::eig2Vec(qp_k), max_acc, t);
     std::thread t1(&gripper::releaseObject, *m_gripper);

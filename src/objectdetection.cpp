@@ -62,7 +62,7 @@ void objectDetection::getSingleCupCoordinates(cv::Mat image, std::vector<cv::Poi
     std::vector<cv::Vec3f> circles;
     cv::HoughCircles(gray, circles, cv::HOUGH_GRADIENT, 1,
                      gray.rows / 16,  // change this value to detect circles with different distances to each other
-                     100, 30, 26, 40 // change the last two parameters
+                     100, 30, 28, 36 // change the last two parameters
                      // (min_radius & max_radius) to detect larger circles
                      );
     //Finds the circle and circle center pixel of the hough circle and prints it:
@@ -146,11 +146,13 @@ void objectDetection::getColouredCupCoordinates(cv::Mat mask, std::vector<cv::Po
     cv::resize(mask, mask, cv::Size(mask.cols * 0.8, mask.rows * 0.8));
     //Blures the picture (if nessesary)
     cv::GaussianBlur(mask, mask, cv::Size(3,3), 3, 0);
+    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3,3));
+    cv::dilate(mask, mask, kernel);
     //Creates a circles vector and fills it with the possible hough circles:
     std::vector<cv::Vec3f> circles;
     cv::HoughCircles(mask, circles, cv::HOUGH_GRADIENT, 1,
                      mask.rows / 8,  // change this value to detect circles with different distances to each other
-                     30, 15, 26, 40 // change the last two parameters
+                     30, 15, 28, 36 // change the last two parameters
                      // (min_radius & max_radius) to detect larger circles
                      );
     //Finds the circle and circle center pixel of the hough circle and prints it:
@@ -189,6 +191,8 @@ void objectDetection::getColouredBallCoordinates(cv::Mat mask, std::vector<cv::P
     cv::resize(mask, mask, cv::Size(mask.cols * 0.8, mask.rows * 0.8));
     //Blures the picture (if nessesary)
     cv::GaussianBlur(mask, mask, cv::Size(3,3), 3, 0);
+    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3,3));
+    cv::dilate(mask, mask, kernel);
     //Creates a circles vector and fills it with the possible hough circles:
     std::vector<cv::Vec3f> circles;
     cv::HoughCircles(mask, circles, cv::HOUGH_GRADIENT, 1,
