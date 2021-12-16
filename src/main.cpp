@@ -1,32 +1,18 @@
-//opencv includes
-//#include <opencv2/core/core.hpp>
-//#include <opencv2/highgui/highgui.hpp>
-//#include <opencv2/videoio.hpp>
-//#include <opencv2/imgproc.hpp>
-//#include <opencv2/core.hpp>
-//#include <opencv2/calib3d.hpp>
-#include<thread>
-#include <chrono>
-
-//My program includes
 #include "colourdetection.h"
 #include "objectdetection.h"
-#include "camera.h"
 #include "pylon.h"
-#include "gripper.h"
 #include "robot.h"
 #include "database.h"
 
 int main(int argc, char* argv[])
 {
 
-    //Opretter forbindelse til databasen:
+    //----------------------------------Opretter forbindelse til databasen:---------------------------------------------
     Database db;
-    //db.drop_tables();
-    // db.connect();
     db.create_tables();
 
-    //Machine vision
+    //-----------------------------------Kast 1 bold i en kop------------------------------------------------------------
+    //----------------Machine vision
     //Loads image
     cv::Mat image;
     pylon cP;
@@ -35,6 +21,7 @@ int main(int argc, char* argv[])
     cv::imshow("billede", image);
     cv::waitKey(0);
 
+    //------------------------------------Udkommenter dette hvis der skal udføres mere end 1 kast-------------------------
     //Creation of colour masks from corrected image:
     //cv::Mat blue, yellow, green, orange;
     //colourDetection a;
@@ -54,6 +41,8 @@ int main(int argc, char* argv[])
     std::vector<cv::Point2f> ballCoor;
     std::vector<cv::Point2f> cupCoor;
     cv::Point2f A, B;
+
+    //----------------------------------kommentaren er til mere end 1 kast, den ikke kommenterede del er til 1 kast------------------
     //o.getColouredCupCoordinates(yellow, cupCoor);
     //o.getColouredBallCoordinates(yellow, ballCoor);
     o.getSingleBallCoordinates(image, ballCoor);
@@ -71,13 +60,14 @@ int main(int argc, char* argv[])
     robotBallCoor = o.convertCoordinates(B, 0);
     robotCupCoor = o.convertCoordinates(A, 0.115);
 
-    //Robot
+    //-------------Robot
     //Is it a simulation or not:
     bool isSimulation = false;
 
     //Opretter forbindelse til robotten og griberen:
     robot r("192.168.100.49", "192.168.100.10");
-    //Til Sim
+
+    //---------------Til Sim---------------
     //robot r("127.0.0.1");
 
     //Program robotten kører
@@ -86,13 +76,14 @@ int main(int argc, char* argv[])
     sleep(1);
 
     std::cout << "Pick up ball" << std::endl;
+    //Til sim
     //std::vector<double> robotBallCoor = {0.108, -0.385, 0.221, 0, M_PI, 0};
     r.pickUpBall(robotBallCoor, isSimulation);
     sleep(1);
 
     std::cout << "Throw position" << std::endl;
     //ThrowPosition sættes
-    //Standard position
+    //Vælger TCP-vinkel alt efter koppens position
     std::vector<double> throwJointValuesDegrees(6);
     std::cout << A.x << std::endl;
     if(A.x <= 30){
@@ -112,6 +103,7 @@ int main(int argc, char* argv[])
     double qpp_max = 38;
     double max_acc = 0;
     double speed = 0;
+    //Til sim
     //std::vector<double> robotCupCoor = {0.220, -0.600, 0.001, 0, 0, 0};
     r.throwBall(max_acc, speed, robotCupCoor, angle, time, qpp_max, isSimulation);
     sleep(1);
@@ -129,8 +121,10 @@ int main(int argc, char* argv[])
     db.add_joint_throw_values(throwPos);
     db.add_kast_data(robotCupCoor, throwPos, time, hit, angle, max_acc, speed);
 
+
+    //-------------------------------Til at udfører mere end 1 kast:-------------------------------------
 /*
-    //Finder ny farve og kaster
+    //--------------Finder ny farve og kaster----------------
     o.getColouredCupCoordinates(orange, cupCoor);
     o.getColouredBallCoordinates(orange, ballCoor);
     A.x = cupCoor.at(0).x;
@@ -147,11 +141,19 @@ int main(int argc, char* argv[])
     sleep(1);
 
     std::cout << "Pick up ball" << std::endl;
+    //Til sim
     //std::vector<double> robotBallCoor = {0.108, -0.385, 0.221, 0, M_PI, 0};
     r.pickUpBall(robotBallCoor, isSimulation);
     sleep(1);
 
     std::cout << "Throw position" << std::endl;
+    if(A.x <= 30){
+        throwJointValuesDegrees = {99, -90, 106, -124, -85, -150};
+    }else if(A.x >= 70){
+        throwJointValuesDegrees = {99, -90, 106, -124, -85, -47};
+    }else{
+        throwJointValuesDegrees = {99, -90, 106, -124, -85, -101};
+    }
     r.goToThrowPos(throwJointValuesDegrees);             // Default = {99, -90, 106, -124, - 85, -101};
     sleep(1);
 
@@ -161,6 +163,7 @@ int main(int argc, char* argv[])
     qpp_max = 38;
     max_acc = 0;
     speed = 0;
+    //Til sim
     //std::vector<double> robotCupCoor = {0.220, -0.600, 0.001, 0, 0, 0};
     r.throwBall(max_acc, speed, robotCupCoor, angle, time, qpp_max, isSimulation);
     sleep(1);
@@ -176,9 +179,8 @@ int main(int argc, char* argv[])
     r.radConversion(throwPos);
     db.add_joint_throw_values(throwPos);
     db.add_kast_data(robotCupCoor, throwPos, time, hit, angle, max_acc, speed);
-/*
-    //Finder ny farve og kaster
-    //Finder ny farve og kaster
+
+    //-----------------------Finder ny farve og kaster--------------------------------
     o.getColouredCupCoordinates(blue, cupCoor);
     o.getColouredBallCoordinates(blue, ballCoor);
     A.x = cupCoor.at(0).x;
@@ -195,11 +197,19 @@ int main(int argc, char* argv[])
     sleep(1);
 
     std::cout << "Pick up ball" << std::endl;
+    //Til sim
     //std::vector<double> robotBallCoor = {0.108, -0.385, 0.221, 0, M_PI, 0};
     r.pickUpBall(robotBallCoor, isSimulation);
     sleep(1);
 
     std::cout << "Throw position" << std::endl;
+    if(A.x <= 30){
+        throwJointValuesDegrees = {99, -90, 106, -124, -85, -150};
+    }else if(A.x >= 70){
+        throwJointValuesDegrees = {99, -90, 106, -124, -85, -47};
+    }else{
+        throwJointValuesDegrees = {99, -90, 106, -124, -85, -101};
+    }
     r.goToThrowPos(throwJointValuesDegrees);             // Default = {99, -90, 106, -124, - 85, -101};
     sleep(1);
 
@@ -209,6 +219,7 @@ int main(int argc, char* argv[])
     qpp_max = 38;
     max_acc = 0;
     speed = 0;
+    //Til sim
     //std::vector<double> robotCupCoor = {0.220, -0.600, 0.001, 0, 0, 0};
     r.throwBall(max_acc, speed, robotCupCoor, angle, time, qpp_max, isSimulation);
     sleep(1);
@@ -224,9 +235,9 @@ int main(int argc, char* argv[])
     r.radConversion(throwPos);
     db.add_joint_throw_values(throwPos);
     db.add_kast_data(robotCupCoor, throwPos, time, hit, angle, max_acc, speed);
-*/
-    /*
-    //Finder ny farve og kaster
+
+
+    //-------------------------Finder ny farve og kaster-------------------------
     cP.getimage(image);
     image = cv::imread("billede.png");
     cv::imshow("billede", image);
@@ -247,11 +258,19 @@ int main(int argc, char* argv[])
     sleep(1);
 
     std::cout << "Pick up ball" << std::endl;
+    //Til sim
     //std::vector<double> robotBallCoor = {0.108, -0.385, 0.221, 0, M_PI, 0};
     r.pickUpBall(robotBallCoor, isSimulation);
     sleep(1);
 
     std::cout << "Throw position" << std::endl;
+    if(A.x <= 30){
+        throwJointValuesDegrees = {99, -90, 106, -124, -85, -150};
+    }else if(A.x >= 70){
+        throwJointValuesDegrees = {99, -90, 106, -124, -85, -47};
+    }else{
+        throwJointValuesDegrees = {99, -90, 106, -124, -85, -101};
+    }
     r.goToThrowPos(throwJointValuesDegrees);             // Default = {99, -90, 106, -124, - 85, -101};
     sleep(1);
 
@@ -261,6 +280,7 @@ int main(int argc, char* argv[])
     qpp_max = 38;
     max_acc = 0;
     speed = 0;
+    //Til sim
     //std::vector<double> robotCupCoor = {0.220, -0.600, 0.001, 0, 0, 0};
     r.throwBall(max_acc, speed, robotCupCoor, angle, time, qpp_max, isSimulation);
     sleep(1);
@@ -277,10 +297,11 @@ int main(int argc, char* argv[])
     db.add_joint_throw_values(throwPos);
     db.add_kast_data(robotCupCoor, throwPos, time, hit, angle, max_acc, speed);
 */
-    //Disconnecter fra robot og griber
+
+    //------------------Disconnecter fra robot og griber--------------
     r.closeConnections(isSimulation);
 
-    //Disconnecter fra databasen
+    //------------------Disconnecter fra databasen---------------------
     db.disconnect();
 
     return 0;

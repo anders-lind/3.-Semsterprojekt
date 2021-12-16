@@ -1,8 +1,4 @@
 #include "gripper.h"
-#include<unistd.h>
-#include<iostream>
-#include<chrono>
-#include<thread>
 
 gripper::gripper()
 {

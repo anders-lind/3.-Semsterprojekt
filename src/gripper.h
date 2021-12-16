@@ -2,6 +2,10 @@
 #define GRIPPER_H
 
 #include <rl/hal/WeissWsg50.h>
+#include<unistd.h>
+#include<iostream>
+#include<chrono>
+#include<thread>
 
 class gripper
 {

@@ -2,6 +2,8 @@
 #define PYLON_H
 
 #include <opencv2/opencv.hpp>
+#include <pylon/PylonIncludes.h>
+#include "camera.h"
 
 class pylon
 {

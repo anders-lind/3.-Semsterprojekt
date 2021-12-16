@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <eigen3/Eigen/Dense>
+#include <iostream>
+#include <cmath>
 
 class Throw
 {

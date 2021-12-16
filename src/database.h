@@ -5,9 +5,10 @@
 #include<QSqlDatabase>
 #include<QtSql>
 #include<QString>
+#include<QDebug>
 #include<sstream>
 #include<iostream>
-#include<QDebug>
+#include <vector>
 
 class Database
 {

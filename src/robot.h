@@ -11,6 +11,7 @@
 #include <eigen3/Eigen/Dense>
 #include "jacobian.h"
 #include "gripper.h"
+#include "kinematics.h"
 
 class robot
 {

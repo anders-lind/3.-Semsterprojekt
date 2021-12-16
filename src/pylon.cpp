@@ -1,6 +1,4 @@
 #include "pylon.h"
-#include <pylon/PylonIncludes.h>
-#include "camera.h"
 
 pylon::pylon()
 {

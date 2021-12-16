@@ -1,8 +1,4 @@
 #include "robot.h"
-#include "kinematics.h"
-#include "jacobian.h"
-#include<chrono>
-#include<thread>
 
 using namespace std;
 
@@ -171,44 +167,6 @@ void robot::throwBall(double &max_acc, double &speed, std::vector<double> goalCo
     }
 
 }
-
-/*
-void robot::throwBall(std::vector<double> goalCoordinates, double t)
-{
-    // Joint values for throw position
-    std::vector<double> q_kV = {99, -90, 106, -124, -85, -101};
-    radConversion(q_kV);
-    // Cartisian coordinates for throw position
-    std::vector<double> x_kV = {0.4674, -0.1943, -0.043, 0, 0, 0};
-    Eigen::MatrixXd x_mE = jacobian::vec2Eig(goalCoordinates);
-    Kinematics kin;
-    // COnvert from std::vector to Eigen Matrix
-    Eigen::MatrixXd x_kE = jacobian::vec2Eig(x_kV);
-    // Calculate cartisian throw speed
-    Eigen::MatrixXd xp_k = kin.calc_xp_k(x_kE, x_mE);
-    // Calculate joint throw speed
-    Eigen::MatrixXd qp_k = kin.calc_qp_k(jacobian::vec2Eig(q_kV), xp_k);
-    // Calculate joint acceleration of throw
-    Eigen::MatrixXd acc = kin.calc_acc(qp_k, t);
-    double max_acc = kin.calc_max_acc(acc);
-    // Calculate start position
-    std::vector<double> qp_k_Neg(6);
-    for(int i = 0; i < jacobian::eig2Vec(qp_k).size(); ++i){
-        qp_k_Neg.at(i) = jacobian::eig2Vec(qp_k).at(i) * (-1);
-    }
-    // Go to x_s
-    m_control->speedJ(qp_k_Neg, max_acc, t);
-    std::this_thread::sleep_for(std::chrono::duration<double>(t)); // Skal msåke kun bruges når man bruger den rigtige robot
-    m_control->speedStop();
-    std::this_thread::sleep_for(std::chrono::duration<double>(2));
-    // Make throw
-    m_control->speedJ(jacobian::eig2Vec(qp_k), max_acc, t);
-    std::thread t1(&gripper::releaseObject, *m_gripper);
-    std::this_thread::sleep_for(std::chrono::duration<double>(t)); // Skal msåke kun bruges når man bruger den rigtige robot
-    t1.join();
-    m_control->speedStop();
-}
-*/
 
 void robot::moveJ(std::vector<double> jointValues)
 {
